@@ -1,4 +1,151 @@
 import { Route, Routes } from "react-router-dom";
+import {
+  Badge,
+  Button,
+  FilterChip,
+  SearchField,
+  Select,
+  TextArea,
+  TextField,
+} from "./shared/ui";
+
+function ComponentsDemo() {
+  const tones = [
+    "neutral",
+    "info",
+    "success",
+    "warning",
+    "danger",
+    "brand",
+  ] as const;
+  return (
+    <main className="components-page">
+      <h1 className="text-heading-h1">Components</h1>
+      <section aria-labelledby="actions">
+        <h2 id="actions" className="text-heading-h2">
+          Actions
+        </h2>
+        <div data-testid="button-demo" className="components-row">
+          {(["Primary", "Secondary", "Ghost", "Danger"] as const).map(
+            (variant) => (
+              <Button
+                key={variant}
+                data-testid={`button-${variant.toLowerCase()}`}
+                variant={variant}
+              >
+                Button
+              </Button>
+            ),
+          )}
+          <Button
+            data-testid="button-leading-icon"
+            leadingIcon={
+              <span className="ui-leading-icon" aria-hidden="true">
+                ＋
+              </span>
+            }
+          >
+            With icon
+          </Button>
+          <Button size="Sm" variant="Primary">
+            Small
+          </Button>
+          <Button size="Sm" variant="Secondary">
+            Small
+          </Button>
+          <Button size="Sm" variant="Ghost">
+            Small
+          </Button>
+          <Button size="Sm" variant="Danger">
+            Small
+          </Button>
+          <Button data-testid="button-loading" loading>
+            Save
+          </Button>
+          <Button data-testid="button-disabled" disabled>
+            Disabled
+          </Button>
+        </div>
+      </section>
+      <section aria-labelledby="badges">
+        <h2 id="badges" className="text-heading-h2">
+          Badges
+        </h2>
+        <div className="components-row">
+          {tones.map((tone) => (
+            <Badge
+              key={tone}
+              data-testid={`badge-${tone}`}
+              tone={(tone[0].toUpperCase() + tone.slice(1)) as never}
+            >
+              Status
+            </Badge>
+          ))}
+        </div>
+      </section>
+      <section aria-labelledby="fields">
+        <h2 id="fields" className="text-heading-h2">
+          Form fields
+        </h2>
+        <div className="components-grid">
+          <TextField
+            data-testid="text-field-default"
+            label="Label"
+            placeholder="Placeholder"
+            helperText="Helper text"
+          />
+          <TextField
+            data-testid="text-field-error"
+            label="Label"
+            placeholder="Placeholder"
+            error="Invalid value"
+          />
+          <TextField
+            data-testid="text-field-both"
+            label="Label"
+            placeholder="Placeholder"
+            helperText="Helper text"
+            error="Invalid value"
+          />
+          <TextField
+            data-testid="text-field-focus"
+            label="Label"
+            placeholder="Placeholder"
+            autoFocus
+            helperText="Focus state"
+          />
+          <TextArea
+            data-testid="textarea-demo"
+            label="Description"
+            placeholder="Placeholder"
+            helperText="Helper text"
+            height={120}
+          />
+          <Select
+            data-testid="select-demo"
+            label="Type"
+            defaultValue="event"
+            helperText="Choose one"
+          >
+            <option value="event">Event</option>
+            <option value="task">Task</option>
+          </Select>
+          <SearchField
+            data-testid="search-field-demo"
+            aria-label="Search"
+            placeholder="Search events or organizations"
+          />
+          <div className="components-row">
+            <FilterChip data-testid="filter-chip-default">Filter</FilterChip>
+            <FilterChip data-testid="filter-chip-active" active>
+              Filter
+            </FilterChip>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
 
 const palette = [
   ["Blue 900", "#223A5E", "Text, nav, strong surfaces", "blue-900"],
@@ -203,6 +350,7 @@ function Foundations() {
 export default function App() {
   return (
     <Routes>
+      <Route path="/components" element={<ComponentsDemo />} />
       <Route path="*" element={<Foundations />} />
     </Routes>
   );
