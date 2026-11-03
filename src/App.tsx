@@ -8,6 +8,7 @@ import {
   TextArea,
   TextField,
 } from "./shared/ui";
+import { LayoutShowcase } from "./shared/ui/LayoutComponents";
 
 function ComponentsDemo() {
   const tones = [
@@ -350,7 +351,7 @@ function Foundations() {
 export default function App() {
   return (
     <Routes>
-      <Route path="/components" element={<ComponentsDemo />} />
+      <Route path="/components" element={<><ComponentsDemo /><LayoutShowcase /></>} />
       <Route path="*" element={<Foundations />} />
     </Routes>
   );
