@@ -7,6 +7,7 @@ import {
   Select,
   TextArea,
   TextField,
+  EventCard,
 } from "./shared/ui";
 import { LayoutShowcase } from "./shared/ui/LayoutComponents";
 
@@ -19,6 +20,16 @@ function ComponentsDemo() {
     "danger",
     "brand",
   ] as const;
+  const cardEvent = {
+    id: "open",
+    title: "Campus night",
+    organizationName: "UBB Student Union",
+    location: "Casa de cultură",
+    startsAt: "2026-11-14T18:00:00Z",
+    capacity: 60,
+    spotsTaken: 42,
+    status: "OPEN" as const,
+  };
   return (
     <main className="components-page">
       <h1 className="text-heading-h1">Components</h1>
@@ -142,6 +153,18 @@ function ComponentsDemo() {
               Filter
             </FilterChip>
           </div>
+        </div>
+      </section>
+      <section aria-labelledby="event-cards">
+        <h2 id="event-cards" className="text-heading-h2">Event cards</h2>
+        <div className="components-row ui-event-card-showcase">
+          <EventCard event={cardEvent} />
+          <EventCard event={{ ...cardEvent, id: "full", spotsTaken: 60 }} />
+          <EventCard event={{ ...cardEvent, id: "few", spotsTaken: 55 }} />
+          <EventCard event={{ ...cardEvent, id: "boundary", capacity: 100, spotsTaken: 90 }} />
+          <EventCard event={{ ...cardEvent, id: "registered" }} registrationStatus="REGISTERED" />
+          <EventCard event={{ ...cardEvent, id: "completed", status: "COMPLETED" }} />
+          <EventCard event={{ ...cardEvent, id: "canceled", status: "CANCELED", spotsTaken: 60 }} />
         </div>
       </section>
     </main>
