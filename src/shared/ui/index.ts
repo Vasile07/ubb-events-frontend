@@ -5,3 +5,4 @@ export * from "./Select";
 export * from "./SearchField";
 export * from "./FilterChip";
 export * from "./LayoutComponents";
+export * from "./EventCard";
