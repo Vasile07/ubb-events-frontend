@@ -53,8 +53,9 @@ describe("shared API client", () => {
             },
           ]);
           expect(fetchStub).to.have.been.calledOnce;
+          const { apiUrl } = await win.eval('import("/src/shared/lib/env.ts")');
           expect(fetchStub.firstCall.args[0]).to.equal(
-            "http://backend.test/api/organizations",
+            `${apiUrl}/api/organizations`,
           );
           expect(
             new Headers(fetchStub.firstCall.args[1]?.headers).get(
