@@ -3,10 +3,12 @@ import {
   Badge,
   Button,
   FilterChip,
+  FeedbackShowcase,
   SearchField,
   Select,
   TextArea,
   TextField,
+  ToastProvider,
 } from "./shared/ui";
 import { LayoutShowcase } from "./shared/ui/LayoutComponents";
 
@@ -144,6 +146,7 @@ function ComponentsDemo() {
           </div>
         </div>
       </section>
+      <FeedbackShowcase />
     </main>
   );
 }
@@ -351,7 +354,7 @@ function Foundations() {
 export default function App() {
   return (
     <Routes>
-      <Route path="/components" element={<><ComponentsDemo /><LayoutShowcase /></>} />
+      <Route path="/components" element={<ToastProvider><><ComponentsDemo /><LayoutShowcase /></></ToastProvider>} />
       <Route path="*" element={<Foundations />} />
     </Routes>
   );
