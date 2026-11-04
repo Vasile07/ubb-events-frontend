@@ -11,6 +11,17 @@ import {
   ToastProvider,
 } from "./shared/ui";
 import { LayoutShowcase } from "./shared/ui/LayoutComponents";
+import { useAuth } from "./features/auth/AuthProvider";
+
+function AuthStatusMarker() {
+  const { status, user } = useAuth();
+  return (
+    <span data-testid="auth-status" hidden>
+      {status}
+      <span data-testid="auth-user-name">{user?.fullName ?? ""}</span>
+    </span>
+  );
+}
 
 function ComponentsDemo() {
   const tones = [
@@ -23,6 +34,7 @@ function ComponentsDemo() {
   ] as const;
   return (
     <main className="components-page">
+      <AuthStatusMarker />
       <h1 className="text-heading-h1">Components</h1>
       <section aria-labelledby="actions">
         <h2 id="actions" className="text-heading-h2">
@@ -219,6 +231,7 @@ const typeStyles = [
 function Foundations() {
   return (
     <main className="foundations-page">
+      <AuthStatusMarker />
       <header className="foundations-header">
         <h1 className="text-heading-h1">Foundations</h1>
         <p className="text-body-large text-secondary">
