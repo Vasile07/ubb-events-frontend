@@ -51,6 +51,25 @@
   --shadow-raised: 0 12px 32px -4px rgba(33, 59, 94, 0.16);
 }
 
+.app-shell { min-height: 100vh; background: var(--bg-page, #f7f9fc); color: var(--text-primary); }
+.app-shell-header { min-height: 72px; display: flex; align-items: center; gap: 40px; padding: 0 40px; background: var(--bg-surface); border-bottom: 1px solid var(--border-default); }
+.app-logo { display: inline-flex; align-items: center; gap: 10px; color: var(--text-primary); font-weight: 800; text-decoration: none; white-space: nowrap; }
+.app-logo-mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; color: var(--text-inverse); background: var(--color-blue-900); font-size: 18px; font-weight: 600; }
+.app-nav { display: flex; align-items: center; gap: 4px; flex: 1; }
+.app-nav a, .app-nav-button { border: 0; border-radius: var(--radius-pill); padding: 9px 14px; color: var(--text-secondary); background: transparent; font: inherit; font-size: 14px; font-weight: 500; line-height: 22px; text-decoration: none; cursor: pointer; }
+.app-nav a:hover, .app-nav a.is-active, .app-nav-button:hover, .app-nav-button[aria-expanded=true] { color: var(--text-primary); background: var(--bg-brand-soft); }
+.app-shell-actions { display: flex; align-items: center; gap: 12px; }
+.app-icon-button { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--border-default); border-radius: 50%; color: var(--text-secondary); background: transparent; cursor: pointer; }
+.app-icon-button:hover { background: var(--bg-brand-soft); }
+.app-profile { display: inline-flex; align-items: center; gap: 10px; padding: 6px; border-radius: var(--radius-pill); color: var(--text-primary); font-size: 14px; font-weight: 600; line-height: 22px; text-decoration: none; }
+.app-profile.is-active { color: var(--text-primary); background: var(--bg-brand-soft); }
+.app-shell-content { max-width: 1440px; margin: 0 auto; padding: 32px 80px 64px; }
+.workspace-picker-wrap { position: relative; }
+.workspace-picker { position: absolute; z-index: 20; top: calc(100% + 8px); right: 0; min-width: 210px; padding: 6px; border: 1px solid var(--border-default); border-radius: var(--radius-md); background: var(--bg-surface); box-shadow: var(--shadow-raised); }
+.workspace-picker a { display: block; padding: 10px 12px; color: var(--text-primary); border-radius: var(--radius-sm); }
+.workspace-picker a:hover, .workspace-picker a:focus-visible { background: var(--bg-brand-soft); }
+@media (max-width: 900px) { .app-shell-header { flex-wrap: wrap; gap: 10px; padding: 16px 24px; } .app-nav { order: 3; flex-basis: 100%; overflow-x: auto; } .app-shell-content { padding-inline: 24px; } }
+
 *,
 *::before,
 *::after {
