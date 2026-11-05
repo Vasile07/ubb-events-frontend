@@ -19,6 +19,7 @@ import {
 } from "./shared/ui";
 import { LayoutShowcase } from "./shared/ui/LayoutComponents";
 import { useAuth } from "./features/auth/AuthProvider";
+import { AppShell } from "./shared/ui/AppShell";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -254,14 +255,18 @@ function RequireOrgManager({ children }: { children: ReactNode }) {
 
 const authPage = (testId: string, title: string) => (
   <RequireAuth>
-    <PlaceholderPage testId={testId} title={title} />
+    <AppShell>
+      <PlaceholderPage testId={testId} title={title} />
+    </AppShell>
   </RequireAuth>
 );
 
 const memberPage = (testId: string, title: string) => (
   <RequireAuth>
     <RequireOrgMember>
-      <PlaceholderPage testId={testId} title={title} />
+      <AppShell>
+        <PlaceholderPage testId={testId} title={title} />
+      </AppShell>
     </RequireOrgMember>
   </RequireAuth>
 );
@@ -269,7 +274,9 @@ const memberPage = (testId: string, title: string) => (
 const managerPage = (testId: string, title: string) => (
   <RequireAuth>
     <RequireOrgManager>
-      <PlaceholderPage testId={testId} title={title} />
+      <AppShell>
+        <PlaceholderPage testId={testId} title={title} />
+      </AppShell>
     </RequireOrgManager>
   </RequireAuth>
 );

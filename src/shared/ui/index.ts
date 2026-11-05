@@ -6,3 +6,4 @@ export * from "./SearchField";
 export * from "./FilterChip";
 export * from "./LayoutComponents";
 export * from "./FeedbackComponents";
+export * from "./AppShell";
