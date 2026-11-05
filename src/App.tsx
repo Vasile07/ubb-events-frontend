@@ -1,4 +1,11 @@
-import { Route, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+} from "react-router-dom";
+import type { ReactNode } from "react";
 import {
   Badge,
   Button,
@@ -162,6 +169,110 @@ function ComponentsDemo() {
     </main>
   );
 }
+
+function PlaceholderPage({ testId, title }: { testId: string; title: string }) {
+  return (
+    <main data-testid={testId}>
+      <AuthStatusMarker />
+      <h1>{title}</h1>
+      <p>This screen is ready for the next feature task.</p>
+    </main>
+  );
+}
+
+function LoginPage() {
+  const location = useLocation();
+  const state = location.state as { from?: string } | null;
+  return (
+    <main data-testid="page-login">
+      <h1>Sign in</h1>
+      <span data-testid="login-from" data-from={state?.from ?? ""} hidden />
+    </main>
+  );
+}
+
+function RequireAuth({ children }: { children: ReactNode }) {
+  const { status } = useAuth();
+  const location = useLocation();
+  if (status === "authenticated") return <>{children}</>;
+  return (
+    <Navigate
+      to="/login"
+      replace
+      state={{
+        from: `${location.pathname}${location.search}${location.hash}`,
+      }}
+    />
+  );
+}
+
+function RedirectIfAuthenticated({ children }: { children: ReactNode }) {
+  const { status } = useAuth();
+  return status === "authenticated" ? (
+    <Navigate to="/events" replace />
+  ) : (
+    <>{children}</>
+  );
+}
+
+function ForbiddenPage() {
+  return (
+    <main data-testid="page-forbidden" role="alert">
+      <h1>403 — Access denied</h1>
+      <p>You do not have permission to view this page.</p>
+    </main>
+  );
+}
+
+function parseOrganizationId(value: string | undefined): number | null {
+  if (!value || !/^\d+$/.test(value)) return null;
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed > 0 ? parsed : null;
+}
+
+function RequireOrgMember({ children }: { children: ReactNode }) {
+  const { organizationId } = useParams();
+  const { isMemberOf } = useAuth();
+  const parsedId = parseOrganizationId(organizationId);
+  return parsedId !== null && isMemberOf(parsedId) ? (
+    <>{children}</>
+  ) : (
+    <ForbiddenPage />
+  );
+}
+
+function RequireOrgManager({ children }: { children: ReactNode }) {
+  const { organizationId } = useParams();
+  const { isManagerOf } = useAuth();
+  const parsedId = parseOrganizationId(organizationId);
+  return parsedId !== null && isManagerOf(parsedId) ? (
+    <>{children}</>
+  ) : (
+    <ForbiddenPage />
+  );
+}
+
+const authPage = (testId: string, title: string) => (
+  <RequireAuth>
+    <PlaceholderPage testId={testId} title={title} />
+  </RequireAuth>
+);
+
+const memberPage = (testId: string, title: string) => (
+  <RequireAuth>
+    <RequireOrgMember>
+      <PlaceholderPage testId={testId} title={title} />
+    </RequireOrgMember>
+  </RequireAuth>
+);
+
+const managerPage = (testId: string, title: string) => (
+  <RequireAuth>
+    <RequireOrgManager>
+      <PlaceholderPage testId={testId} title={title} />
+    </RequireOrgManager>
+  </RequireAuth>
+);
 
 const palette = [
   ["Blue 900", "#223A5E", "Text, nav, strong surfaces", "blue-900"],
@@ -367,8 +478,95 @@ function Foundations() {
 export default function App() {
   return (
     <Routes>
-      <Route path="/components" element={<ToastProvider><><ComponentsDemo /><LayoutShowcase /></></ToastProvider>} />
-      <Route path="*" element={<Foundations />} />
+      <Route
+        path="/components"
+        element={
+          <ToastProvider>
+            <>
+              <ComponentsDemo />
+              <LayoutShowcase />
+            </>
+          </ToastProvider>
+        }
+      />
+      <Route path="/foundations" element={<Foundations />} />
+      <Route
+        path="/login"
+        element={
+          <RedirectIfAuthenticated>
+            <LoginPage />
+          </RedirectIfAuthenticated>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <RedirectIfAuthenticated>
+            <PlaceholderPage testId="page-register" title="Create account" />
+          </RedirectIfAuthenticated>
+        }
+      />
+      <Route path="/" element={<Navigate to="/events" replace />} />
+      <Route path="/events" element={authPage("page-events", "Events")} />
+      <Route
+        path="/events/:eventId"
+        element={authPage("page-event-details", "Event details")}
+      />
+      <Route
+        path="/my-registrations"
+        element={authPage("page-my-registrations", "My registrations")}
+      />
+      <Route path="/my-tasks" element={authPage("page-my-tasks", "My tasks")} />
+      <Route
+        path="/organizations"
+        element={authPage("page-organizations", "Organizations")}
+      />
+      <Route
+        path="/organizations/:organizationId"
+        element={authPage("page-organization-details", "Organization details")}
+      />
+      <Route path="/profile" element={authPage("page-profile", "Profile")} />
+      <Route
+        path="/org/:organizationId/events"
+        element={memberPage("page-org-events", "Organization events")}
+      />
+      <Route
+        path="/org/:organizationId/events/new"
+        element={managerPage("page-org-event-new", "Create event")}
+      />
+      <Route
+        path="/org/:organizationId/events/:eventId/edit"
+        element={managerPage("page-org-event-edit", "Edit event")}
+      />
+      <Route
+        path="/org/:organizationId/events/:eventId/tasks"
+        element={memberPage("page-org-event-tasks", "Event tasks")}
+      />
+      <Route
+        path="/org/:organizationId/events/:eventId/registrations"
+        element={memberPage("page-org-event-registrations", "Event registrations")}
+      />
+      <Route
+        path="/org/:organizationId/events/:eventId/chat"
+        element={memberPage("page-org-event-chat", "Event chat")}
+      />
+      <Route
+        path="/org/:organizationId/events/:eventId/announcements"
+        element={memberPage("page-org-event-announcements", "Event announcements")}
+      />
+      <Route
+        path="/org/:organizationId/events/:eventId/follow-up"
+        element={managerPage("page-org-event-follow-up", "Event follow-up")}
+      />
+      <Route
+        path="/org/:organizationId/requests"
+        element={managerPage("page-org-requests", "Membership requests")}
+      />
+      <Route
+        path="/org/:organizationId/members"
+        element={memberPage("page-org-members", "Organization members")}
+      />
+      <Route path="*" element={<Navigate to="/events" replace />} />
     </Routes>
   );
 }

@@ -1,5 +1,5 @@
 describe("Foundations design tokens", () => {
-  beforeEach(() => cy.visit("/"));
+  beforeEach(() => cy.visit("/foundations"));
 
   it("renders the Foundations demo sections", () => {
     cy.get("h1").contains("Foundations").should("be.visible");
