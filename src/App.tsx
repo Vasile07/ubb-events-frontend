@@ -21,6 +21,7 @@ import {
 import { LayoutShowcase } from "./shared/ui/LayoutComponents";
 import { useAuth } from "./features/auth/AuthProvider";
 import { AppShell } from "./shared/ui/AppShell";
+import { DiscoverEventsPage } from "./features/events/DiscoverEventsPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -537,7 +538,16 @@ export default function App() {
         }
       />
       <Route path="/" element={<Navigate to="/events" replace />} />
-      <Route path="/events" element={authPage("page-events", "Events")} />
+      <Route
+        path="/events"
+        element={
+          <RequireAuth>
+            <AppShell>
+              <DiscoverEventsPage />
+            </AppShell>
+          </RequireAuth>
+        }
+      />
       <Route
         path="/events/:eventId"
         element={authPage("page-event-details", "Event details")}
