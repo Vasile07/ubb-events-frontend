@@ -83,21 +83,28 @@ describe("authentication context", () => {
     cy.visit("/", {
       onBeforeLoad(win) {
         win.localStorage.setItem("token", "jwt");
-        cy.stub(win, "fetch").resolves({
-          ok: true,
-          status: 200,
-          json: () =>
-            Promise.resolve({
+        cy.stub(win, "fetch").callsFake((input) => {
+          if (String(input).endsWith("/api/users/me")) {
+            return Promise.resolve({
+              ok: true,
+              status: 200,
+              json: () => Promise.resolve({
               id: 7,
               firstName: "Ada",
               lastName: "Lovelace",
               email: "ada@example.com",
               memberships: [],
-            }),
-        } as Response);
+              }),
+            } as Response);
+          }
+          return Promise.resolve({
+            ok: true,
+            status: 200,
+            json: () => Promise.resolve([]),
+          } as Response);
+        });
       },
     });
-    cy.get("[data-testid=auth-status]").should("contain", "authenticated");
-    cy.get("[data-testid=auth-user-name]").should("contain", "Ada Lovelace");
+    cy.get("[data-testid=profile-link]").should("contain", "Ada Lovelace");
   });
 });
