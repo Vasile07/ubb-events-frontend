@@ -213,6 +213,34 @@ describe("discover events screen", () => {
     cy.get("[data-testid=open-registration-filter]").should("not.be.checked");
   });
 
+  it("shows only upcoming published events with available capacity when open-only is enabled", () => {
+    visitDiscover();
+
+    cy.get("[data-testid=open-registration-filter]").check();
+    cy.location("search").should("include", "openOnly=true");
+    cy.get("[data-testid=discover-result-count]").should("contain", "4");
+    cy.get("[data-testid=event-card-1]").should("be.visible");
+    cy.get("[data-testid=event-card-5]").should("be.visible");
+    cy.get("[data-testid=event-card-6]").should("be.visible");
+    cy.get("[data-testid=event-card-2]").should("not.exist");
+    cy.get("[data-testid=event-card-3]").should("not.exist");
+    cy.get("[data-testid=event-card-4]").should("not.exist");
+    cy.get("[data-testid=event-card-7]").should("be.visible");
+  });
+
+  it("supports keyboard traversal and exposes accessible event filters", () => {
+    visitDiscover();
+
+    cy.get("[data-testid=event-search]").focus();
+    cy.press(Cypress.Keyboard.Keys.TAB);
+    cy.focused().should("have.attr", "data-testid", "organization-filter").and("match", "button");
+    cy.press(Cypress.Keyboard.Keys.TAB);
+    cy.focused().should("have.attr", "data-testid", "date-range-filter").and("match", "button");
+    cy.press(Cypress.Keyboard.Keys.TAB);
+    cy.focused().should("have.attr", "data-testid", "open-registration-filter").and("match", ":checkbox");
+    cy.get("label.discover-open-filter").should("contain", "Open for registration");
+  });
+
   it("sends a partial date range and keeps events usable if organizations fail to load", () => {
     visitDiscover("/events?from=2099-11-01", { organizationStatus: 500 });
 
