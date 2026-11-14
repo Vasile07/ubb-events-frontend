@@ -27,6 +27,7 @@ import { RegisterPage } from "./features/auth/RegisterPage";
 import { MyTasksPage } from "./features/tasks/MyTasksPage";
 import { OrganizationsListPage } from "./features/organizations/OrganizationsListPage";
 import { OrganizationWorkspace } from "./features/organizations/OrganizationWorkspace";
+import { OrganizationDetailsPage } from "./features/organizations/OrganizationDetailsPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -577,7 +578,7 @@ export default function App() {
       />
       <Route
         path="/organizations/:organizationId"
-        element={authPage("page-organization-details", "Organization details")}
+        element={<RequireAuth><AppShell><OrganizationDetailsPage /></AppShell></RequireAuth>}
       />
       <Route path="/profile" element={authPage("page-profile", "Profile")} />
       <Route
