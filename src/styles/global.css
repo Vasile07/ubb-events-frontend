@@ -242,6 +242,7 @@
 .app-profile { display: inline-flex; align-items: center; gap: 10px; padding: 6px; border-radius: var(--radius-pill); color: var(--text-primary); font-size: 14px; font-weight: 600; line-height: 22px; text-decoration: none; }
 .app-profile.is-active { color: var(--text-primary); background: var(--bg-brand-soft); }
 .app-shell-content { max-width: 1440px; margin: 0 auto; padding: 32px 80px 64px; }
+.app-shell-content:has(> .organization-workspace) { max-width: none; margin: 0; padding: 0; }
 .workspace-picker-wrap { position: relative; }
 .workspace-picker { position: absolute; z-index: 20; top: calc(100% + 8px); right: 0; min-width: 210px; padding: 6px; border: 1px solid var(--border-default); border-radius: var(--radius-md); background: var(--bg-surface); box-shadow: var(--shadow-raised); }
 .workspace-picker a { display: block; padding: 10px 12px; color: var(--text-primary); border-radius: var(--radius-sm); }
@@ -964,6 +965,29 @@ select {
 .organization-workspace-state { display: grid; min-height: 300px; place-content: center; gap: 12px; padding: 40px; color: var(--text-secondary); text-align: center; }
 .organization-workspace-state h1, .organization-workspace-state p { margin: 0; }
 .organization-workspace-state button { justify-self: center; padding: 10px 16px; border: 0; border-radius: 10px; background: var(--bg-brand); color: var(--text-inverse); cursor: pointer; }
+.org-events-page { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.org-events-page .ui-page-header h1 { color: var(--text-primary); font-size: 32px; line-height: 40px; letter-spacing: -.5px; }
+.org-events-page .ui-page-header p { margin-top: 4px; color: var(--text-secondary); font-size: 14px; line-height: 22px; }
+.org-events-page .ui-page-header-actions a { text-decoration: none; }
+.org-events-tabs { max-width: 100%; overflow-x: auto; align-self: flex-start; }
+.org-events-tabs button { white-space: nowrap; }
+.org-events-page .ui-table-wrap { width: 100%; border-radius: var(--radius-lg); }
+.org-events-page .ui-table-wrap table { min-width: 760px; }
+.org-events-page .ui-table-wrap thead { background: var(--bg-page); }
+.org-events-page .ui-table-wrap th { padding: 12px 18px; font-size: 11px; letter-spacing: .2px; }
+.org-events-page .ui-table-wrap td { height: 73px; padding: 14px 18px; }
+.org-events-page .ui-table-wrap tr:last-child td { border-bottom: 0; }
+.org-events-event-cell { display: flex; flex-direction: column; gap: 2px; }
+.org-events-event-cell strong { color: var(--text-primary); font-size: 14px; font-weight: 600; line-height: 20px; }
+.org-events-event-cell small { color: var(--text-secondary); font-size: 12px; line-height: 16px; }
+.org-events-page .ui-table-wrap td .ui-badge { white-space: nowrap; }
+.org-events-page .ui-table-wrap td .ui-button { white-space: nowrap; text-decoration: none; }
+.org-events-view-link { color: var(--text-secondary); font-size: 12px; font-weight: 600; text-decoration: none; }
+.org-events-view-link:hover { text-decoration: underline; }
+.org-events-view-link:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 3px; border-radius: 3px; }
+.org-events-page .ui-table-skeleton { width: 100%; }
+.org-events-page .ui-error-state,
+.org-events-page .ui-empty-state { align-self: center; }
 @media (max-width: 760px) { .organization-workspace { grid-template-columns: 1fr; } .organization-workspace-sidebar { min-height: auto; border-right: 0; border-bottom: 1px solid var(--border-default); } .organization-workspace-main { min-height: 60vh; padding: 32px 24px; } }
 @media (max-width: 560px) {
   .ui-toast-region { top: 12px; right: 12px; width: calc(100vw - 24px); }

@@ -28,6 +28,7 @@ import { MyTasksPage } from "./features/tasks/MyTasksPage";
 import { OrganizationsListPage } from "./features/organizations/OrganizationsListPage";
 import { OrganizationWorkspace } from "./features/organizations/OrganizationWorkspace";
 import { OrganizationDetailsPage } from "./features/organizations/OrganizationDetailsPage";
+import { OrganizationEventsPage } from "./features/organizations/OrganizationEventsPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -583,7 +584,17 @@ export default function App() {
       <Route path="/profile" element={authPage("page-profile", "Profile")} />
       <Route
         path="/org/:organizationId/events"
-        element={memberPage("page-org-events", "Organization events")}
+        element={
+          <RequireAuth>
+            <RequireOrgMember>
+              <AppShell>
+                <OrganizationWorkspace>
+                  <OrganizationEventsPage />
+                </OrganizationWorkspace>
+              </AppShell>
+            </RequireOrgMember>
+          </RequireAuth>
+        }
       />
       <Route
         path="/org/:organizationId/events/new"
