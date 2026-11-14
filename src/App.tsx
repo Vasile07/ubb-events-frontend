@@ -23,6 +23,7 @@ import { useAuth } from "./features/auth/AuthProvider";
 import { AppShell } from "./shared/ui/AppShell";
 import { DiscoverEventsPage } from "./features/events/DiscoverEventsPage";
 import { LoginPage } from "./features/auth/LoginPage";
+import { RegisterPage } from "./features/auth/RegisterPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -530,7 +531,7 @@ export default function App() {
         path="/register"
         element={
           <RedirectIfAuthenticated>
-            <PlaceholderPage testId="page-register" title="Create account" />
+            <RegisterPage />
           </RedirectIfAuthenticated>
         }
       />

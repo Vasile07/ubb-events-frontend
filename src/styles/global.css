@@ -659,7 +659,7 @@ select {
   font-size: 14px;
   line-height: 22px;
 }
-/* Login / register form panel (Figma Student Screens > Login 13:10) */
+/* Login / register form panel (Figma Student Screens > Login 13:10, Create account 13:62) */
 .auth-form-header {
   margin-bottom: 24px;
 }
@@ -681,6 +681,17 @@ select {
 }
 .auth-form-submit {
   width: 100%;
+}
+/* Create account: first and last name side by side (Figma Create account 13:62) */
+.auth-form-name-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+@media (max-width: 480px) {
+  .auth-form-name-row {
+    grid-template-columns: 1fr;
+  }
 }
 .ui-auth-form-content .auth-form-switch {
   display: flex;
