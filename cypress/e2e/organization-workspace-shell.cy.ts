@@ -28,7 +28,7 @@ function visitWorkspace(
           return Promise.resolve(response({ ...profile, memberships }));
         }
         if (url.pathname === "/api/organizations/3" && !url.pathname.endsWith("membership-requests")) {
-          const result = response(options.organization ?? { organizationId: 3, name: "Societatea Hermes", description: "A student organization", category: "Business & Economics", status: "MEMBER", role: memberships[0]?.role ?? "MEMBER" }, options.organizationStatus ?? 200);
+          const result = response(options.organization ?? { organizationId: 3, name: "Societatea Hermes", description: "A student organization", status: "MEMBER", role: memberships[0]?.role ?? "MEMBER" }, options.organizationStatus ?? 200);
           return options.delayMs ? new Promise((resolve) => win.setTimeout(() => resolve(result), options.delayMs)) : Promise.resolve(result);
         }
         if (url.pathname.endsWith("/api/organizations/3/membership-requests")) {
@@ -45,7 +45,8 @@ describe("organization workspace shell", () => {
     visitWorkspace("/org/3/events", [{ organizationId: 3, role: "MANAGER" }]);
     cy.get("[data-testid=organization-workspace]").should("be.visible");
     cy.get("[data-testid=workspace-organization-name]").should("contain", "Societatea Hermes");
-    cy.get(".workspace-org-header span").should("contain", "Business & Economics");
+    cy.get(".workspace-org-header").should("contain", "A student organization");
+    cy.get(".workspace-org-header span").should("contain", "A student organization");
     cy.get("[data-testid=workspace-role-badge]").should("contain", "Manager");
     cy.get("[data-testid=workspace-membership-requests] img").should(($image) => {
       expect(($image[0] as HTMLImageElement).naturalWidth).to.be.greaterThan(0);

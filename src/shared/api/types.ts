@@ -13,7 +13,6 @@ export interface OrganizationDetailsResponse {
   organizationId: number;
   name: string;
   description: string | null;
-  category: string | null;
   status: OrganizationMembershipStatus;
 }
 
