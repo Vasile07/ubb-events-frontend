@@ -25,6 +25,7 @@ import { DiscoverEventsPage } from "./features/events/DiscoverEventsPage";
 import { LoginPage } from "./features/auth/LoginPage";
 import { RegisterPage } from "./features/auth/RegisterPage";
 import { OrganizationsListPage } from "./features/organizations/OrganizationsListPage";
+import { OrganizationWorkspace } from "./features/organizations/OrganizationWorkspace";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -288,7 +289,9 @@ const memberPage = (testId: string, title: string) => (
   <RequireAuth>
     <RequireOrgMember>
       <AppShell>
-        <PlaceholderPage testId={testId} title={title} />
+        <OrganizationWorkspace>
+          <PlaceholderPage testId={testId} title={title} />
+        </OrganizationWorkspace>
       </AppShell>
     </RequireOrgMember>
   </RequireAuth>
@@ -298,7 +301,9 @@ const managerPage = (testId: string, title: string) => (
   <RequireAuth>
     <RequireOrgManager>
       <AppShell>
-        <PlaceholderPage testId={testId} title={title} />
+        <OrganizationWorkspace>
+          <PlaceholderPage testId={testId} title={title} />
+        </OrganizationWorkspace>
       </AppShell>
     </RequireOrgManager>
   </RequireAuth>
