@@ -306,6 +306,35 @@ select {
 .organizations-header h1 { margin: 6px 0 8px; }
 .organizations-page > .ui-search-field { margin-bottom: 32px; width: min(100%, 480px); }
 .organizations-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.organization-details-page { display: grid; gap: 24px; }
+.organization-details-back { display: inline-flex; width: fit-content; align-items: center; gap: 8px; color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; line-height: 22px; }
+.organization-details-back img { width: 18px; height: 18px; }
+.organization-details-back:hover { color: var(--text-primary); }
+.organization-details-hero { position: relative; isolation: isolate; display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 28px; align-items: center; min-height: 168px; overflow: hidden; padding: 36px; border-radius: 24px; color: var(--text-inverse, #fff); background: linear-gradient(171.39deg, #4d79a8 0%, #223a5e 71.429%); }
+.organization-details-hero-decor { position: absolute; z-index: -1; top: -120px; right: -100px; width: 380px; height: 380px; pointer-events: none; }
+.organization-details-logo { display: grid; width: 96px; height: 96px; place-items: center; border-radius: 24px; background: var(--bg-surface, #fff); }
+.organization-details-logo img { width: 44px; height: 44px; }
+.organization-details-hero-copy { display: grid; gap: 8px; min-width: 0; }
+.organization-details-hero h1, .organization-details-hero p { margin: 0; }
+.organization-details-hero h1 { color: var(--text-inverse, #fff); font-size: 36px; font-weight: 700; line-height: 40px; letter-spacing: -0.5px; }
+.organization-details-hero p { color: var(--text-inverse-soft, #d0e1f2); font-size: 16px; line-height: 24px; }
+.organization-details-actions { position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.organization-details-actions .ui-button { white-space: nowrap; }
+.organization-details-columns { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 32px; align-items: start; }
+.organization-details-upcoming { min-width: 0; }
+.organization-details-upcoming > h2 { margin: 0 0 20px; color: var(--text-primary); font-size: 24px; font-weight: 700; line-height: 32px; letter-spacing: -0.3px; }
+.organization-events-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.organization-events-grid > a { min-width: 0; color: inherit; text-decoration: none; }
+.organization-events-grid .ui-event-card { width: 100%; }
+.organization-details-about { padding: 24px; border: 1px solid var(--border-default, #d0e1f2); border-radius: 20px; background: var(--bg-surface, #fff); }
+.organization-details-about h2 { margin: 0 0 16px; color: var(--text-primary); font-size: 18px; font-weight: 700; line-height: 26px; }
+.organization-details-about p { margin: 0 0 16px; color: var(--text-secondary); font-size: 14px; line-height: 22px; }
+.organization-details-about ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.organization-details-about li { display: flex; align-items: center; gap: 10px; color: var(--text-secondary); font-size: 14px; line-height: 22px; }
+.organization-details-about li img { flex: 0 0 18px; width: 18px; height: 18px; }
+@media (max-width: 1100px) { .organization-details-columns { grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; } .organization-events-grid { gap: 20px; } }
+@media (max-width: 850px) { .organization-details-columns { grid-template-columns: 1fr; } .organization-details-about { grid-row: 2; } }
+@media (max-width: 700px) { .organization-details-hero { grid-template-columns: 72px minmax(0, 1fr); gap: 20px; padding: 24px; } .organization-details-logo { width: 72px; height: 72px; border-radius: 18px; } .organization-details-logo img { width: 36px; height: 36px; } .organization-details-hero h1 { font-size: 28px; line-height: 34px; } .organization-details-actions { grid-column: 1 / -1; align-items: flex-start; } .organization-details-hero-decor { right: -220px; } .organization-events-grid { grid-template-columns: 1fr; } }
 .organization-card { display: flex; min-height: 344px; flex-direction: column; gap: 16px; padding: 24px; background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 20px; box-shadow: var(--shadow-card); }
 .organization-card-top { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
 .organization-icon-tile { display: grid; width: 56px; height: 56px; place-items: center; background: var(--bg-brand-soft); border-radius: 16px; }
