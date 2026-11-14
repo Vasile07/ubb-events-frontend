@@ -104,7 +104,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await loginRequest(email, password);
       setToken(response.token);
       setStoredToken(response.token);
-      setStatus("loading");
+      // No full-app "loading" here: it would unmount the login form while it is still submitting.
       await refreshUser();
     },
     [refreshUser],

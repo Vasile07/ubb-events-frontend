@@ -659,6 +659,52 @@ select {
   font-size: 14px;
   line-height: 22px;
 }
+/* Login / register form panel (Figma Student Screens > Login 13:10) */
+.auth-form-header {
+  margin-bottom: 24px;
+}
+.ui-auth-form-content .auth-form-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: -.5px;
+}
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.auth-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.auth-form-submit {
+  width: 100%;
+}
+.ui-auth-form-content .auth-form-switch {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+}
+.auth-form-switch a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.auth-form-switch a:hover {
+  text-decoration: underline;
+}
+.auth-form-switch a:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* Server-side errors (e.g. invalid credentials) mark fields invalid without a field message */
+.ui-field-control[aria-invalid="true"] {
+  border: 2px solid var(--status-danger-fg);
+}
 .ui-tabs button {
   min-height: 38px;
   border-radius: var(--radius-pill);
