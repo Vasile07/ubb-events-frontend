@@ -24,6 +24,7 @@ import { AppShell } from "./shared/ui/AppShell";
 import { DiscoverEventsPage } from "./features/events/DiscoverEventsPage";
 import { LoginPage } from "./features/auth/LoginPage";
 import { RegisterPage } from "./features/auth/RegisterPage";
+import { MyTasksPage } from "./features/tasks/MyTasksPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -554,7 +555,16 @@ export default function App() {
         path="/my-registrations"
         element={authPage("page-my-registrations", "My registrations")}
       />
-      <Route path="/my-tasks" element={authPage("page-my-tasks", "My tasks")} />
+      <Route
+        path="/my-tasks"
+        element={
+          <RequireAuth>
+            <AppShell>
+              <MyTasksPage />
+            </AppShell>
+          </RequireAuth>
+        }
+      />
       <Route
         path="/organizations"
         element={authPage("page-organizations", "Organizations")}

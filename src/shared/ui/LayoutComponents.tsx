@@ -17,6 +17,7 @@ const iconSources: Partial<Record<IconName, string>> = {
   "arrow-left": "/ui-assets/figma-arrow-left.svg",
   search: "/ui-assets/search.svg",
   ticket: "/ui-assets/figma-ticket.svg",
+  tasks: "/ui-assets/figma-tasks.svg",
 };
 
 const iconPaths: Partial<Record<IconName, string>> = {
@@ -29,7 +30,6 @@ const iconPaths: Partial<Record<IconName, string>> = {
   alert: "M12 3 2.5 20h19L12 3ZM12 9v4M12 17h.01",
   chevrons: "m7 10 5-5 5 5M7 14l5 5 5-5",
   megaphone: "m3 11 18-5v12L3 14v-3ZM11 15l2 6H8l-3-7M21 6v12",
-  tasks: "M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01",
   shield: "M12 3 20 6v6c0 4.5-3.2 7.4-8 9-4.8-1.6-8-4.5-8-9V6z",
   logout: "M10 17l5-5-5-5M15 12H3M21 3v18",
 };
