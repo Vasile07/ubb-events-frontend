@@ -53,7 +53,6 @@ export function OrganizationWorkspace({ children }: { children: ReactNode }) {
     organizationId,
     name: `Organization ${organizationId}`,
     description: null,
-    category: null,
     role: "MEMBER" as const,
     status: "MEMBER" as const,
   };
@@ -69,7 +68,7 @@ export function OrganizationWorkspace({ children }: { children: ReactNode }) {
     <aside className="organization-workspace-sidebar" aria-label={`${data.name} workspace`}>
       <div className="workspace-org-header">
         <div className="workspace-org-icon"><img src="/ui-assets/workspace-building.svg" alt="" aria-hidden="true" /></div>
-        <div><strong data-testid="workspace-organization-name">{data.name}</strong><span>{data.category ?? data.description ?? "Organization"}</span></div>
+        <div><strong data-testid="workspace-organization-name">{data.name}</strong><span>{data.description ?? "Organization"}</span></div>
       </div>
       <Badge tone="Brand" data-testid="workspace-role-badge">{role === "MANAGER" ? "Manager" : "Member"}</Badge>
       <div className="workspace-divider" />
