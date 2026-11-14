@@ -8,3 +8,18 @@ export interface OrganizationResponse {
   status: OrganizationMembershipStatus;
   role: OrganizationRole;
 }
+
+export interface OrganizationDetailsResponse {
+  organizationId: number;
+  name: string;
+  description: string | null;
+  category: string | null;
+  status: OrganizationMembershipStatus;
+}
+
+export interface MembershipRequestResponse {
+  id?: number;
+  membershipId?: number;
+  status?: string;
+  [key: string]: unknown;
+}
