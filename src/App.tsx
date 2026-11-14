@@ -22,6 +22,7 @@ import { LayoutShowcase } from "./shared/ui/LayoutComponents";
 import { useAuth } from "./features/auth/AuthProvider";
 import { AppShell } from "./shared/ui/AppShell";
 import { DiscoverEventsPage } from "./features/events/DiscoverEventsPage";
+import { LoginPage } from "./features/auth/LoginPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -205,17 +206,6 @@ function PlaceholderPage({ testId, title }: { testId: string; title: string }) {
   );
 }
 
-function LoginPage() {
-  const location = useLocation();
-  const state = location.state as { from?: string } | null;
-  return (
-    <main data-testid="page-login">
-      <h1>Sign in</h1>
-      <span data-testid="login-from" data-from={state?.from ?? ""} hidden />
-    </main>
-  );
-}
-
 function RequireAuth({ children }: { children: ReactNode }) {
   const { status } = useAuth();
   const location = useLocation();
@@ -231,10 +221,17 @@ function RequireAuth({ children }: { children: ReactNode }) {
   );
 }
 
+// Only same-app paths are followed ("/x", not "//host" or absolute URLs), so the redirect can't leave the app.
+function safeRedirectTarget(from: unknown): string {
+  return typeof from === "string" && from.startsWith("/") && !from.startsWith("//") ? from : "/events";
+}
+
 function RedirectIfAuthenticated({ children }: { children: ReactNode }) {
   const { status } = useAuth();
+  const location = useLocation();
+  const from = (location.state as { from?: unknown } | null)?.from;
   return status === "authenticated" ? (
-    <Navigate to="/events" replace />
+    <Navigate to={safeRedirectTarget(from)} replace />
   ) : (
     <>{children}</>
   );
