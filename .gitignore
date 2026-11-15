@@ -6,3 +6,4 @@ dist
 !.env.example
 cypress/screenshots
 cypress/videos
+.idea/
