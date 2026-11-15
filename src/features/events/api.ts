@@ -1,9 +1,6 @@
 import { apiFetch } from "../../shared/api/client";
-import type {
-  EventDiscoveryFilters,
-  EventSummary,
-  OrganizationEvent,
-} from "./types";
+import type { AnnouncementResponse, OrganizationEvent, EventDetails, EventDiscoveryFilters, EventSummary, RegistrationResponse } from "./types";
+
 
 export function getOrganizationEvents(
   organizationId: number,
@@ -12,6 +9,7 @@ export function getOrganizationEvents(
     `/api/organizations/${organizationId}/events`,
   );
 }
+
 
 export function getEvents(
   filters: EventDiscoveryFilters = {},
@@ -25,4 +23,20 @@ export function getEvents(
   if (filters.to) params.set("to", filters.to);
   const query = params.toString();
   return apiFetch<EventSummary[]>(`/api/events${query ? `?${query}` : ""}`);
+}
+
+export function getEvent(eventId: number): Promise<EventDetails> {
+  return apiFetch<EventDetails>(`/api/events/${eventId}`);
+}
+
+export function registerForEvent(eventId: number): Promise<RegistrationResponse> {
+  return apiFetch<RegistrationResponse>(`/api/events/${eventId}/registrations`, { method: "POST" });
+}
+
+export function cancelRegistration(eventId: number): Promise<void> {
+  return apiFetch<void>(`/api/events/${eventId}/registrations/me`, { method: "DELETE" });
+}
+
+export function getEventAnnouncements(eventId: number): Promise<AnnouncementResponse[]> {
+  return apiFetch<AnnouncementResponse[]>(`/api/events/${eventId}/announcements`);
 }
