@@ -13,6 +13,10 @@ export function getOrganizationEvents(
   );
 }
 
+export function getOrganizationEvent(organizationId: number, eventId: number): Promise<OrganizationEvent> {
+  return apiFetch<OrganizationEvent>(`/api/organizations/${organizationId}/events/${eventId}`);
+}
+
 export function getEvents(
   filters: EventDiscoveryFilters = {},
 ): Promise<EventSummary[]> {
