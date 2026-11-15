@@ -1,8 +1,11 @@
 import { apiFetch } from "../../shared/api/client";
 import type {
+  AnnouncementResponse,
+  EventDetails,
   EventDiscoveryFilters,
   EventSummary,
   OrganizationEvent,
+  RegistrationResponse,
 } from "./types";
 
 export function getOrganizationEvents(
@@ -13,8 +16,13 @@ export function getOrganizationEvents(
   );
 }
 
-export function getOrganizationEvent(organizationId: number, eventId: number): Promise<OrganizationEvent> {
-  return apiFetch<OrganizationEvent>(`/api/organizations/${organizationId}/events/${eventId}`);
+export function getOrganizationEvent(
+  organizationId: number,
+  eventId: number,
+): Promise<OrganizationEvent> {
+  return apiFetch<OrganizationEvent>(
+    `/api/organizations/${organizationId}/events/${eventId}`,
+  );
 }
 
 export function getEvents(
@@ -29,4 +37,20 @@ export function getEvents(
   if (filters.to) params.set("to", filters.to);
   const query = params.toString();
   return apiFetch<EventSummary[]>(`/api/events${query ? `?${query}` : ""}`);
+}
+
+export function getEvent(eventId: number): Promise<EventDetails> {
+  return apiFetch<EventDetails>(`/api/events/${eventId}`);
+}
+
+export function registerForEvent(eventId: number): Promise<RegistrationResponse> {
+  return apiFetch<RegistrationResponse>(`/api/events/${eventId}/registrations`, { method: "POST" });
+}
+
+export function cancelRegistration(eventId: number): Promise<void> {
+  return apiFetch<void>(`/api/events/${eventId}/registrations/me`, { method: "DELETE" });
+}
+
+export function getEventAnnouncements(eventId: number): Promise<AnnouncementResponse[]> {
+  return apiFetch<AnnouncementResponse[]>(`/api/events/${eventId}/announcements`);
 }
