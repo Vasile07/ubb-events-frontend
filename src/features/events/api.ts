@@ -1,6 +1,12 @@
 import { apiFetch } from "../../shared/api/client";
-import type { AnnouncementResponse, OrganizationEvent, EventDetails, EventDiscoveryFilters, EventSummary, RegistrationResponse } from "./types";
-
+import type {
+  AnnouncementResponse,
+  EventDetails,
+  EventDiscoveryFilters,
+  EventSummary,
+  OrganizationEvent,
+  RegistrationResponse,
+} from "./types";
 
 export function getOrganizationEvents(
   organizationId: number,
@@ -10,6 +16,14 @@ export function getOrganizationEvents(
   );
 }
 
+export function getOrganizationEvent(
+  organizationId: number,
+  eventId: number,
+): Promise<OrganizationEvent> {
+  return apiFetch<OrganizationEvent>(
+    `/api/organizations/${organizationId}/events/${eventId}`,
+  );
+}
 
 export function getEvents(
   filters: EventDiscoveryFilters = {},

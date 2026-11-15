@@ -66,24 +66,3 @@ export interface OrganizationEvent {
   status: OrganizationEventStatus;
   registrationCount: number;
 }
-
-export type OrganizationEventStatus =
-  | "DRAFT"
-  | "PUBLISHED"
-  | "COMPLETED"
-  | "CANCELED";
-
-export interface OrganizationEvent {
-  id: number;
-  organizationId: number;
-  categoryId: number;
-  title: string;
-  description: string;
-  date: string;
-  startTime: string;
-  endTime: string | null;
-  location: string | null;
-  capacity: number | null;
-  status: OrganizationEventStatus;
-  registrationCount: number;
-}

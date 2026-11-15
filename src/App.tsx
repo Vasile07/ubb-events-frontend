@@ -29,6 +29,7 @@ import { OrganizationsListPage } from "./features/organizations/OrganizationsLis
 import { OrganizationWorkspace } from "./features/organizations/OrganizationWorkspace";
 import { OrganizationDetailsPage } from "./features/organizations/OrganizationDetailsPage";
 import { OrganizationEventsPage } from "./features/organizations/OrganizationEventsPage";
+import { EventWorkspace } from "./features/events/EventWorkspace";
 import { EventDetailsPage } from "./features/events/EventDetailsPage";
 
 function AuthStatusMarker() {
@@ -310,6 +311,12 @@ const managerPage = (testId: string, title: string) => (
         </OrganizationWorkspace>
       </AppShell>
     </RequireOrgManager>
+  </RequireAuth>
+);
+
+const eventPage = (testId: string, title: string, manager = false) => (
+  <RequireAuth>
+    {manager ? <RequireOrgManager><AppShell><OrganizationWorkspace><EventWorkspace><PlaceholderPage testId={testId} title={title} /></EventWorkspace></OrganizationWorkspace></AppShell></RequireOrgManager> : <RequireOrgMember><AppShell><OrganizationWorkspace><EventWorkspace><PlaceholderPage testId={testId} title={title} /></EventWorkspace></OrganizationWorkspace></AppShell></RequireOrgMember>}
   </RequireAuth>
 );
 
@@ -607,23 +614,23 @@ export default function App() {
       />
       <Route
         path="/org/:organizationId/events/:eventId/tasks"
-        element={memberPage("page-org-event-tasks", "Event tasks")}
+          element={eventPage("page-org-event-tasks", "Event tasks")}
       />
       <Route
         path="/org/:organizationId/events/:eventId/registrations"
-        element={memberPage("page-org-event-registrations", "Event registrations")}
+          element={eventPage("page-org-event-registrations", "Event registrations")}
       />
       <Route
         path="/org/:organizationId/events/:eventId/chat"
-        element={memberPage("page-org-event-chat", "Event chat")}
+          element={eventPage("page-org-event-chat", "Event chat")}
       />
       <Route
         path="/org/:organizationId/events/:eventId/announcements"
-        element={memberPage("page-org-event-announcements", "Event announcements")}
+          element={eventPage("page-org-event-announcements", "Event announcements")}
       />
       <Route
         path="/org/:organizationId/events/:eventId/follow-up"
-        element={managerPage("page-org-event-follow-up", "Event follow-up")}
+          element={eventPage("page-org-event-follow-up", "Event follow-up", true)}
       />
       <Route
         path="/org/:organizationId/requests"
