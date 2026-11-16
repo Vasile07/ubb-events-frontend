@@ -23,4 +23,5 @@ export type EventFormProps = {
   fieldErrors?: Record<string, string>;
   onDirtyChange?: (dirty: boolean) => void;
   submitLabel?: string;
+  onCancel?: () => void;
 };

@@ -9,6 +9,17 @@ import type {
 } from "./types";
 import type { EventFormValues } from "./eventFormTypes";
 
+export type UpdateOrganizationEventRequest = {
+  categoryId: number;
+  title: string;
+  description: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  location: string;
+  capacity: number;
+};
+
 export type CreateOrganizationEventResponse = { id: number; status: "DRAFT" };
 
 export function createOrganizationEvent(
@@ -51,6 +62,21 @@ export function getOrganizationEvent(
   return apiFetch<OrganizationEvent>(
     `/api/organizations/${organizationId}/events/${eventId}`,
   );
+}
+
+export function updateOrganizationEvent(organizationId: number, eventId: number, values: EventFormValues, categoryId: number) {
+  return apiFetch<OrganizationEvent>(`/api/organizations/${organizationId}/events/${eventId}`, {
+    method: "PUT",
+    body: { categoryId, title: values.title, description: values.description, date: values.startDate, startTime: values.startTime, endTime: values.endTime, location: values.location, capacity: Number(values.capacity) } satisfies UpdateOrganizationEventRequest,
+  });
+}
+
+export function publishOrganizationEvent(organizationId: number, eventId: number) {
+  return apiFetch<OrganizationEvent>(`/api/organizations/${organizationId}/events/${eventId}/publish`, { method: "PATCH" });
+}
+
+export function deleteOrganizationEvent(organizationId: number, eventId: number) {
+  return apiFetch<void>(`/api/organizations/${organizationId}/events/${eventId}`, { method: "DELETE" });
 }
 
 export function getEvents(
