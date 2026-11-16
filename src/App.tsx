@@ -32,6 +32,7 @@ import { OrganizationEventsPage } from "./features/organizations/OrganizationEve
 import { EventWorkspace } from "./features/events/EventWorkspace";
 import { EventDetailsPage } from "./features/events/EventDetailsPage";
 import { EventForm } from "./features/events/EventForm";
+import { ProfilePage } from "./features/profile/ProfilePage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -596,7 +597,7 @@ export default function App() {
         path="/organizations/:organizationId"
         element={<RequireAuth><AppShell><OrganizationDetailsPage /></AppShell></RequireAuth>}
       />
-      <Route path="/profile" element={authPage("page-profile", "Profile")} />
+      <Route path="/profile" element={<RequireAuth><AppShell><ProfilePage /></AppShell></RequireAuth>} />
       <Route path="/event-form-demo" element={<EventFormDemo />} />
       <Route path="/event-form-demo/edit" element={<EventFormDemo />} />
       <Route
