@@ -159,7 +159,11 @@ describe("routing and route guards", () => {
     memberRoutes.forEach((path) => {
       visitAuthenticated(path, [{ organizationId: 3, role: "MANAGER" }]);
       cy.location("pathname").should("eq", path);
-      cy.get("[data-testid^=page-]").should("be.visible");
+      if (path.endsWith("/events/new")) {
+        cy.get("[data-testid=create-event-page]").should("be.visible");
+      } else {
+        cy.get("[data-testid^=page-]").should("be.visible");
+      }
     });
   });
 
