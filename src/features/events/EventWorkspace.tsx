@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { ApiError } from "../../shared/api/client";
+import { ForbiddenPage } from "../errors/ErrorPages";
 import { Badge, type BadgeTone } from "../../shared/ui/Badge";
 import { getOrganizationEvent } from "./api";
 import type { OrganizationEvent, OrganizationEventStatus } from "./types";
@@ -18,6 +19,7 @@ export function EventWorkspace({ children }: { children: ReactNode }) {
   const query = useQuery({ queryKey: ["organization-event", organizationId, eventId], queryFn: () => getOrganizationEvent(organizationId as number, eventId as number), enabled: organizationId !== null && eventId !== null });
   if (organizationId === null || eventId === null) return <main className="event-workspace-state" data-testid="event-workspace-not-found" role="alert"><h1>Event not found</h1><p>The event link is invalid.</p></main>;
   if (query.isLoading) return <main className="event-workspace-state" data-testid="event-workspace-loading" role="status" aria-busy="true">Loading event…</main>;
+  if (query.isError && query.error instanceof ApiError && query.error.status === 403) return <ForbiddenPage variant="member" />;
   if (query.isError || !query.data) { const notFound = query.error instanceof ApiError && query.error.status === 404; return <main className="event-workspace-state" data-testid={notFound ? "event-workspace-not-found" : "event-workspace-error"} role="alert"><h1>{notFound ? "Event not found" : "Could not load event"}</h1><p>We could not load this event workspace.</p><button type="button" onClick={() => void query.refetch()}>Retry</button></main>; }
   const event: OrganizationEvent = query.data; const base = `/org/${organizationId}/events/${eventId}`;
   const tabs = [["Tasks", `${base}/tasks`, "tasks"], ["Registrations", `${base}/registrations`, "registrations"], ["Organizer chat", `${base}/chat`, "chat"], ["Announcements", `${base}/announcements`, "announcements"], ["Follow-up", `${base}/follow-up`, "follow-up"]] as const;

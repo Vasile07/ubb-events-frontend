@@ -50,8 +50,10 @@ describe("routing and route guards", () => {
     cy.location("pathname").should("eq", "/events");
     cy.get("[data-testid=page-events]").should("be.visible");
 
+    // T58: unknown routes show the 404 page instead of redirecting to /events.
     visitAuthenticated("/does-not-exist", []);
-    cy.location("pathname").should("eq", "/events");
+    cy.location("pathname").should("eq", "/does-not-exist");
+    cy.get("[data-testid=page-not-found]").should("be.visible");
   });
 
   it("redirects anonymous users to login and remembers the exact target", () => {
