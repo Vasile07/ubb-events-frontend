@@ -25,6 +25,11 @@ export interface UserProfileResponse {
   memberships: AuthMembership[];
 }
 
+export interface UpdateUserProfilePayload {
+  firstName: string;
+  lastName: string;
+}
+
 export interface LoginResponse {
   token: string;
 }
