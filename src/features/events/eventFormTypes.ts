@@ -21,4 +21,6 @@ export type EventFormProps = {
   onSubmit: (values: EventFormValues) => void | Promise<void>;
   submitting?: boolean;
   fieldErrors?: Record<string, string>;
+  onDirtyChange?: (dirty: boolean) => void;
+  submitLabel?: string;
 };

@@ -32,6 +32,7 @@ import { OrganizationEventsPage } from "./features/organizations/OrganizationEve
 import { EventWorkspace } from "./features/events/EventWorkspace";
 import { EventDetailsPage } from "./features/events/EventDetailsPage";
 import { EventForm } from "./features/events/EventForm";
+import { CreateEventPage } from "./features/events/CreateEventPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -615,7 +616,7 @@ export default function App() {
       />
       <Route
         path="/org/:organizationId/events/new"
-        element={managerPage("page-org-event-new", "Create event")}
+        element={<RequireAuth><RequireOrgManager><AppShell><OrganizationWorkspace><CreateEventPage /></OrganizationWorkspace></AppShell></RequireOrgManager></RequireAuth>}
       />
       <Route
         path="/org/:organizationId/events/:eventId/edit"

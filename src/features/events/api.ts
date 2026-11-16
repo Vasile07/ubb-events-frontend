@@ -7,6 +7,34 @@ import type {
   OrganizationEvent,
   RegistrationResponse,
 } from "./types";
+import type { EventFormValues } from "./eventFormTypes";
+
+export type CreateOrganizationEventResponse = { id: number; status: "DRAFT" };
+
+export function createOrganizationEvent(
+  organizationId: number,
+  values: EventFormValues,
+): Promise<CreateOrganizationEventResponse> {
+  return apiFetch<CreateOrganizationEventResponse>(
+    `/api/organizations/${organizationId}/events`,
+    {
+      method: "POST",
+      body: {
+        title: values.title,
+        description: values.description,
+        date: values.startDate,
+        startTime: values.startTime,
+        endTime: values.endTime,
+        location: values.location,
+        capacity: Number(values.capacity),
+        tasks: values.tasks.map((task) => ({
+          description: task.description,
+          assigneeId: task.assigneeId ? Number(task.assigneeId) : null,
+        })),
+      },
+    },
+  );
+}
 
 export function getOrganizationEvents(
   organizationId: number,
