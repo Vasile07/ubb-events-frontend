@@ -3,8 +3,6 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState, type ReactNode } from "react";
 import { ApiError } from "../../shared/api/client";
 import { ForbiddenPage } from "../errors/ErrorPages";
-import { Badge, type BadgeTone } from "../../shared/ui/Badge";
-import { getOrganizationEvent } from "./api";
 import { Badge, Button, Icon, Modal, useToast, type BadgeTone } from "../../shared/ui";
 import { useAuth } from "../auth/AuthProvider";
 import { deleteOrganizationEvent, getOrganizationEvent, publishOrganizationEvent } from "./api";
