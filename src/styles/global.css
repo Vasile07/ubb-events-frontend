@@ -1294,3 +1294,80 @@ select {
 .event-form-summary ul { margin-bottom: 0; }
 .event-form-actions { display: flex; justify-content: flex-end; margin-top: 20px; }
 @media (max-width: 800px) { .event-form-layout { grid-template-columns: 1fr; } .event-form-grid-four, .event-task-row { grid-template-columns: 1fr; } }
+
+/* Error pages 404 / 403 (Figma Student Screens 48:876, 48:914) */
+.error-page {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 72px - 96px);
+  overflow: hidden;
+}
+:not(.app-shell-content) > .error-page {
+  min-height: 100vh;
+  background: var(--bg-page);
+}
+.error-page-decor {
+  position: absolute;
+  pointer-events: none;
+}
+.error-page-decor-small {
+  top: 26px;
+  right: 19%;
+}
+.error-page-decor-left {
+  top: 56px;
+  left: 0;
+}
+.error-page-decor-large {
+  top: 416px;
+  right: -40px;
+}
+.error-page-message {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+.error-page-code {
+  margin: 0;
+  color: var(--color-blue-600);
+  font-size: 140px;
+  font-weight: 800;
+  line-height: 140px;
+  letter-spacing: -4px;
+}
+.error-page-message h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: -.5px;
+}
+.error-page-description {
+  max-width: 520px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 16px;
+  line-height: 24px;
+}
+.error-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+@media (max-width: 900px) {
+  .error-page-decor {
+    display: none;
+  }
+  .error-page-code {
+    font-size: 96px;
+    line-height: 96px;
+  }
+}
+

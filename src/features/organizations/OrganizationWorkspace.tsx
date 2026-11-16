@@ -4,6 +4,7 @@ import { useAuth } from "../auth/AuthProvider";
 import { getMembershipRequests, getOrganization } from "../../shared/api/organizations";
 import { organizationMembershipRequestsKey } from "./membershipRequestQueries";
 import { ApiError } from "../../shared/api/client";
+import { ForbiddenPage } from "../errors/ErrorPages";
 import { Badge } from "../../shared/ui/Badge";
 import type { ReactNode } from "react";
 
@@ -45,6 +46,7 @@ export function OrganizationWorkspace({ children }: { children: ReactNode }) {
   if (organizationId === null) return <main data-testid="workspace-error" role="alert">Invalid organization.</main>;
   if (organization.isLoading) return <main className="organization-workspace-state" data-testid="workspace-loading" role="status" aria-busy="true">Loading organization…</main>;
   if (organization.isError) {
+    if (organization.error instanceof ApiError && organization.error.status === 403) return <ForbiddenPage variant="member" />;
     const notFound = organization.error instanceof ApiError && organization.error.status === 404;
     return <main className="organization-workspace-state" data-testid="workspace-error" role="alert"><h1>{notFound ? "Organization not found" : "Could not load organization"}</h1><p>We could not load this organization workspace.</p><button type="button" data-testid="workspace-retry" onClick={() => void organization.refetch()}>Retry</button></main>;
   }

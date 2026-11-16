@@ -25,6 +25,7 @@ import { DiscoverEventsPage } from "./features/events/DiscoverEventsPage";
 import { LoginPage } from "./features/auth/LoginPage";
 import { RegisterPage } from "./features/auth/RegisterPage";
 import { MyTasksPage } from "./features/tasks/MyTasksPage";
+import { ForbiddenPage, NotFoundPage } from "./features/errors/ErrorPages";
 import { OrganizationsListPage } from "./features/organizations/OrganizationsListPage";
 import { OrganizationWorkspace } from "./features/organizations/OrganizationWorkspace";
 import { OrganizationDetailsPage } from "./features/organizations/OrganizationDetailsPage";
@@ -255,21 +256,13 @@ function RedirectIfAuthenticated({ children }: { children: ReactNode }) {
   );
 }
 
-function ForbiddenPage() {
-  return (
-    <main data-testid="page-forbidden" role="alert">
-      <h1>403 — Access denied</h1>
-      <p>You do not have permission to view this page.</p>
-    </main>
-  );
-}
-
 function parseOrganizationId(value: string | undefined): number | null {
   if (!value || !/^\d+$/.test(value)) return null;
   const parsed = Number(value);
   return Number.isSafeInteger(parsed) && parsed > 0 ? parsed : null;
 }
 
+// Guard failures show the 403 page inside the app shell, so the navbar stays visible (T58).
 function RequireOrgMember({ children }: { children: ReactNode }) {
   const { organizationId } = useParams();
   const { isMemberOf } = useAuth();
@@ -277,18 +270,39 @@ function RequireOrgMember({ children }: { children: ReactNode }) {
   return parsedId !== null && isMemberOf(parsedId) ? (
     <>{children}</>
   ) : (
-    <ForbiddenPage />
+    <AppShell>
+      <ForbiddenPage variant="member" />
+    </AppShell>
   );
 }
 
 function RequireOrgManager({ children }: { children: ReactNode }) {
   const { organizationId } = useParams();
-  const { isManagerOf } = useAuth();
+  const { isManagerOf, user } = useAuth();
   const parsedId = parseOrganizationId(organizationId);
-  return parsedId !== null && isManagerOf(parsedId) ? (
-    <>{children}</>
+  if (parsedId !== null && isManagerOf(parsedId)) return <>{children}</>;
+  // A member who is not a manager gets the manager text; anyone else gets the member text.
+  const membership = parsedId === null ? undefined : user?.memberships.find((item) => item.organizationId === parsedId);
+  return (
+    <AppShell>
+      {membership ? (
+        <ForbiddenPage variant="manager" organizationName={membership.organizationName} />
+      ) : (
+        <ForbiddenPage variant="member" />
+      )}
+    </AppShell>
+  );
+}
+
+// Unknown routes: the 404 page, inside the app shell when the user is signed in (T58).
+function CatchAllNotFound() {
+  const { status } = useAuth();
+  return status === "authenticated" ? (
+    <AppShell>
+      <NotFoundPage />
+    </AppShell>
   ) : (
-    <ForbiddenPage />
+    <NotFoundPage />
   );
 }
 
@@ -652,7 +666,7 @@ export default function App() {
         path="/org/:organizationId/members"
         element={memberPage("page-org-members", "Organization members")}
       />
-      <Route path="*" element={<Navigate to="/events" replace />} />
+      <Route path="*" element={<CatchAllNotFound />} />
     </Routes>
   );
 }

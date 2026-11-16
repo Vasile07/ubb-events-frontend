@@ -2,6 +2,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState, type ReactNode } from "react";
 import { ApiError } from "../../shared/api/client";
+import { ForbiddenPage } from "../errors/ErrorPages";
+import { Badge, type BadgeTone } from "../../shared/ui/Badge";
+import { getOrganizationEvent } from "./api";
 import { Badge, Button, Icon, Modal, useToast, type BadgeTone } from "../../shared/ui";
 import { useAuth } from "../auth/AuthProvider";
 import { deleteOrganizationEvent, getOrganizationEvent, publishOrganizationEvent } from "./api";
@@ -26,6 +29,7 @@ export function EventWorkspace({ children }: { children: ReactNode }) {
   const remove = useMutation({ mutationFn: () => deleteOrganizationEvent(organizationId as number, eventId as number), onSuccess: () => { invalidate(); setModal(null); toast.success("Event deleted", "The event was removed."); navigate(`/org/${organizationId}/events`); }, onError: (error) => setActionError(messageFor(error)) });
   if (organizationId === null || eventId === null) return <main className="event-workspace-state" data-testid="event-workspace-not-found" role="alert"><h1>Event not found</h1><p>The event link is invalid.</p></main>;
   if (query.isLoading) return <main className="event-workspace-state" data-testid="event-workspace-loading" role="status" aria-busy="true">Loading event…</main>;
+  if (query.isError && query.error instanceof ApiError && query.error.status === 403) return <ForbiddenPage variant="member" />;
   if (query.isError || !query.data) { const notFound = query.error instanceof ApiError && query.error.status === 404; return <main className="event-workspace-state" data-testid={notFound ? "event-workspace-not-found" : "event-workspace-error"} role="alert"><h1>{notFound ? "Event not found" : "Could not load event"}</h1><p>We could not load this event workspace.</p><button type="button" onClick={() => void query.refetch()}>Retry</button></main>; }
   const event: OrganizationEvent = query.data; const base = `/org/${organizationId}/events/${eventId}`; const terminal = event.status === "CANCELED" || event.status === "COMPLETED";
   const tabs = [["Tasks", `${base}/tasks`, "tasks"], ["Registrations", `${base}/registrations`, "registrations"], ["Organizer chat", `${base}/chat`, "chat"], ["Announcements", `${base}/announcements`, "announcements"], ["Follow-up", `${base}/follow-up`, "follow-up"]] as const;
