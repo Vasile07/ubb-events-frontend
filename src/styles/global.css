@@ -996,6 +996,31 @@ select {
 .event-workspace-title-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .event-workspace-title-row > div:first-child { display: flex; align-items: center; gap: 12px; }
 .event-workspace-title-row h1 { margin: 0; font-size: 32px; line-height: 40px; }
+.event-workspace-action-group { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.event-workspace-action-group .ui-button[aria-disabled="true"] { color: var(--text-muted); background: var(--bg-muted); border-color: var(--border-default); cursor: not-allowed; pointer-events: auto; }
+.event-workspace-draft-warning { margin: 0 0 20px; padding: 12px 14px; color: var(--status-warning-fg); background: var(--status-warning-bg); border: 1px solid var(--status-warning-fg); border-radius: var(--radius-md); font-size: 14px; }
+.event-workspace-draft-warning, .event-action-impact { display: flex; align-items: center; gap: 8px; }
+.event-action-modal-copy { color: var(--text-secondary); line-height: 1.5; }
+.event-action-modal-icon { width: 56px; height: 56px; display: grid; place-items: center; margin-bottom: 16px; border-radius: 50%; }
+.event-action-modal-icon .ui-icon { width: 24px; height: 24px; }
+.event-action-modal-icon-success { color: var(--status-success-fg); background: var(--status-success-bg); }
+.event-action-modal-icon-danger { color: var(--status-danger-fg); background: var(--status-danger-bg); }
+.event-action-modal-copy ul { margin: 12px 0 20px; padding-left: 20px; }
+.event-action-modal-copy li { display: flex; align-items: center; gap: 8px; list-style: none; }
+.event-action-modal-copy li .ui-icon { color: var(--status-success-fg); }
+.event-action-impact { color: var(--text-primary); font-weight: 600; }
+.event-action-impact-warning { padding: 12px; color: var(--status-warning-fg); background: var(--status-warning-bg); border-radius: var(--radius-md); }
+.event-action-impact-warning .ui-icon { color: var(--status-warning-fg); }
+.event-action-modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.event-edit-page { max-width: 1160px; margin: 0 auto; padding: 28px 32px 48px; }
+.event-edit-back { display: inline-block; margin-bottom: 22px; color: var(--text-secondary); text-decoration: none; }
+.event-edit-heading { margin-bottom: 24px; }
+.event-edit-heading-row { display: flex; align-items: center; gap: 12px; }
+.event-edit-heading h1 { margin: 0; font-size: 32px; line-height: 40px; }
+.event-edit-heading p { margin: 8px 0 0; color: var(--text-secondary); }
+.event-edit-guidance { color: var(--text-primary); background: var(--bg-brand-soft); border-color: var(--color-blue-200, #d0e1f2); }
+.event-edit-registration-metric { display: block; margin: 8px 0 2px; color: var(--text-primary); font-size: 28px; line-height: 34px; }
+.event-form-aside [data-testid="current-status-card"] > span { color: var(--text-secondary); font-size: 13px; }
 .event-workspace-meta { display: flex; flex-wrap: wrap; gap: 20px; margin: 14px 0 24px; color: var(--text-secondary); font-size: 14px; }
 .event-workspace-tabs { display: flex; gap: 24px; overflow-x: auto; }
 .event-workspace-tabs a { padding: 14px 2px 13px; color: var(--text-secondary); border-bottom: 3px solid transparent; text-decoration: none; white-space: nowrap; font-size: 14px; font-weight: 600; }
@@ -1006,7 +1031,7 @@ select {
 .event-workspace-state { display: grid; place-content: center; gap: 12px; min-height: 320px; text-align: center; color: var(--text-secondary); }
 .event-workspace-state h1, .event-workspace-state p { margin: 0; }
 .event-workspace-state button { justify-self: center; padding: 10px 16px; border: 0; border-radius: 10px; color: var(--text-inverse); background: var(--bg-brand); cursor: pointer; }
-@media (max-width: 760px) { .event-workspace-header { padding: 24px 20px 0; } .event-workspace-content { padding: 24px 20px; } .event-workspace-title-row h1 { font-size: 26px; } }
+@media (max-width: 760px) { .event-workspace-header { padding: 24px 20px 0; } .event-workspace-content { padding: 24px 20px; } .event-workspace-title-row { align-items: flex-start; flex-direction: column; } .event-workspace-title-row h1 { font-size: 26px; } .event-workspace-action-group { width: 100%; } .event-edit-page { padding: 24px 20px 40px; } }
 @media (max-width: 560px) {
   .ui-toast-region { top: 12px; right: 12px; width: calc(100vw - 24px); }
   .ui-empty-state,
