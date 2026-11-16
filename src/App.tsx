@@ -31,6 +31,7 @@ import { OrganizationDetailsPage } from "./features/organizations/OrganizationDe
 import { OrganizationEventsPage } from "./features/organizations/OrganizationEventsPage";
 import { EventWorkspace } from "./features/events/EventWorkspace";
 import { EventDetailsPage } from "./features/events/EventDetailsPage";
+import { EventForm } from "./features/events/EventForm";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -212,6 +213,12 @@ function PlaceholderPage({ testId, title }: { testId: string; title: string }) {
       <p>This screen is ready for the next feature task.</p>
     </main>
   );
+}
+
+function EventFormDemo() {
+  const edit = window.location.pathname.endsWith("/edit");
+  const errors = new URLSearchParams(window.location.search).has("errors");
+  return <main className="components-page"><h1>{edit ? "Edit event" : "Create event"}</h1><EventForm mode={edit ? "edit" : "create"} organizationId={1} onSubmit={() => undefined} fieldErrors={errors ? (edit ? { capacity: "Capacity cannot be lower than active registrations (3)" } : { "tasks[1].description": "Add a task description", "tasks[2].assigneeId": "Choose an assignee" }) : undefined} initialValues={edit ? { title: "Existing event", description: "Existing description", location: "Main hall", capacity: "20", activeRegistrations: 3, status: "Published" } : errors ? { title: "Draft title", description: "Draft description", location: "Main hall", tasks: [{ description: "One", assigneeId: "" }, { description: "Two", assigneeId: "" }, { description: "Three", assigneeId: "" }] } : undefined} /></main>;
 }
 
 function RequireAuth({ children }: { children: ReactNode }) {
@@ -590,6 +597,8 @@ export default function App() {
         element={<RequireAuth><AppShell><OrganizationDetailsPage /></AppShell></RequireAuth>}
       />
       <Route path="/profile" element={authPage("page-profile", "Profile")} />
+      <Route path="/event-form-demo" element={<EventFormDemo />} />
+      <Route path="/event-form-demo/edit" element={<EventFormDemo />} />
       <Route
         path="/org/:organizationId/events"
         element={
