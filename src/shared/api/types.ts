@@ -22,3 +22,10 @@ export interface MembershipRequestResponse {
   status?: string;
   [key: string]: unknown;
 }
+
+export interface OrganizationMemberResponse {
+  id: number;
+  fullName?: string;
+  firstName?: string;
+  lastName?: string;
+}
