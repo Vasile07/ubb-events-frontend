@@ -1371,3 +1371,123 @@ select {
   }
 }
 
+/* Event tasks tab (Figma Organization Screens > Org – Event: Tasks 15:412) */
+.event-tasks-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.event-tasks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.event-tasks-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+}
+.event-tasks-header p {
+  margin: 2px 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 22px;
+}
+.event-tasks-table {
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  box-shadow: none;
+}
+.event-tasks-table thead {
+  background: var(--bg-subtle);
+}
+.event-tasks-table th {
+  padding: 14px 24px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: .2px;
+}
+.event-tasks-table td {
+  padding: 16px 24px;
+  vertical-align: middle;
+}
+.event-tasks-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.event-tasks-col-assignee {
+  width: 260px;
+}
+.event-tasks-col-action {
+  width: 90px;
+}
+.event-tasks-description {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+}
+.event-tasks-assignee {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.event-tasks-assignee strong,
+.event-tasks-assignee small {
+  display: block;
+}
+.event-tasks-assignee strong {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+}
+.event-tasks-assignee small {
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+.event-tasks-unassigned {
+  color: var(--text-muted);
+  font-size: 14px;
+  font-style: italic;
+}
+.event-task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 20px;
+}
+.event-task-confirm {
+  margin: 16px 0 0;
+  color: var(--text-secondary);
+}
+.event-task-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+.event-task-form .event-task-modal-actions {
+  margin-top: 4px;
+}
+.event-task-remove {
+  margin-right: auto;
+}
+@media (max-width: 900px) {
+  .event-tasks-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .event-tasks-col-assignee {
+    width: auto;
+  }
+}
+

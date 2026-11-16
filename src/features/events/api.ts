@@ -8,6 +8,7 @@ import type {
   RegistrationResponse,
 } from "./types";
 import type { EventFormValues } from "./eventFormTypes";
+import type { EventTask, EventTaskRequest } from "./eventTasks";
 
 export type UpdateOrganizationEventRequest = {
   categoryId: number;
@@ -108,3 +109,20 @@ export function cancelRegistration(eventId: number): Promise<void> {
 export function getEventAnnouncements(eventId: number): Promise<AnnouncementResponse[]> {
   return apiFetch<AnnouncementResponse[]>(`/api/events/${eventId}/announcements`);
 }
+
+export function getEventTasks(organizationId: number, eventId: number): Promise<EventTask[]> {
+  return apiFetch<EventTask[]>(`/api/organizations/${organizationId}/events/${eventId}/tasks`);
+}
+
+export function createEventTask(organizationId: number, eventId: number, request: EventTaskRequest): Promise<EventTask> {
+  return apiFetch<EventTask>(`/api/organizations/${organizationId}/events/${eventId}/tasks`, { method: "POST", body: request });
+}
+
+export function updateEventTask(organizationId: number, eventId: number, taskId: number, request: EventTaskRequest): Promise<EventTask> {
+  return apiFetch<EventTask>(`/api/organizations/${organizationId}/events/${eventId}/tasks/${taskId}`, { method: "PUT", body: request });
+}
+
+export function deleteEventTask(organizationId: number, eventId: number, taskId: number): Promise<void> {
+  return apiFetch<void>(`/api/organizations/${organizationId}/events/${eventId}/tasks/${taskId}`, { method: "DELETE" });
+}
+

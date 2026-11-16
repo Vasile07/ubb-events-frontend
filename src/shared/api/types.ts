@@ -28,4 +28,6 @@ export interface OrganizationMemberResponse {
   fullName?: string;
   firstName?: string;
   lastName?: string;
+  email?: string;
+  role?: "MANAGER" | "MEMBER";
 }

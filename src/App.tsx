@@ -36,6 +36,7 @@ import { EventEditPage } from "./features/events/EventEditPage";
 import { EventForm } from "./features/events/EventForm";
 import { CreateEventPage } from "./features/events/CreateEventPage";
 import { ProfilePage } from "./features/profile/ProfilePage";
+import { EventTasksPage } from "./features/events/EventTasksPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -640,7 +641,7 @@ export default function App() {
       />
       <Route
         path="/org/:organizationId/events/:eventId/tasks"
-          element={eventPage("page-org-event-tasks", "Event tasks")}
+        element={<RequireAuth><RequireOrgMember><AppShell><OrganizationWorkspace><EventWorkspace><EventTasksPage /></EventWorkspace></OrganizationWorkspace></AppShell></RequireOrgMember></RequireAuth>}
       />
       <Route
         path="/org/:organizationId/events/:eventId/registrations"
