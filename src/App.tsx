@@ -32,6 +32,7 @@ import { OrganizationDetailsPage } from "./features/organizations/OrganizationDe
 import { OrganizationEventsPage } from "./features/organizations/OrganizationEventsPage";
 import { EventWorkspace } from "./features/events/EventWorkspace";
 import { EventDetailsPage } from "./features/events/EventDetailsPage";
+import { EventEditPage } from "./features/events/EventEditPage";
 import { EventForm } from "./features/events/EventForm";
 import { CreateEventPage } from "./features/events/CreateEventPage";
 import { ProfilePage } from "./features/profile/ProfilePage";
@@ -635,7 +636,7 @@ export default function App() {
       />
       <Route
         path="/org/:organizationId/events/:eventId/edit"
-        element={managerPage("page-org-event-edit", "Edit event")}
+        element={<RequireAuth><RequireOrgManager><AppShell><OrganizationWorkspace><EventEditPage /></OrganizationWorkspace></AppShell></RequireOrgManager></RequireAuth>}
       />
       <Route
         path="/org/:organizationId/events/:eventId/tasks"
