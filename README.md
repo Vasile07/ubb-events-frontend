@@ -1,5 +1,9 @@
 # UBB Events frontend
 
+## Deployed version
+
+[Open the frontend](https://ubb-events-frontend.happypond-e62576ee.francecentral.azurecontainerapps.io/events) — deployed on Microsoft Azure Container Apps.
+
 ## Prerequisites
 
 - Node.js 22.12 or newer in the 22.x line, 24.x, or 26 or newer
