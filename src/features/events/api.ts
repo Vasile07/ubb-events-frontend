@@ -6,6 +6,7 @@ import type {
   EventSummary,
   OrganizationEvent,
   RegistrationResponse,
+  MyRegistration,
 } from "./types";
 import type { EventFormValues } from "./eventFormTypes";
 import type { EventTask, EventTaskRequest } from "./eventTasks";
@@ -104,6 +105,10 @@ export function registerForEvent(eventId: number): Promise<RegistrationResponse>
 
 export function cancelRegistration(eventId: number): Promise<void> {
   return apiFetch<void>(`/api/events/${eventId}/registrations/me`, { method: "DELETE" });
+}
+
+export function getMyRegistrations(): Promise<MyRegistration[]> {
+  return apiFetch<MyRegistration[]>("/api/users/me/registrations");
 }
 
 export function getEventAnnouncements(eventId: number): Promise<AnnouncementResponse[]> {

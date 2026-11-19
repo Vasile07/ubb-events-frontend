@@ -37,6 +37,7 @@ import { EventForm } from "./features/events/EventForm";
 import { CreateEventPage } from "./features/events/CreateEventPage";
 import { ProfilePage } from "./features/profile/ProfilePage";
 import { EventTasksPage } from "./features/events/EventTasksPage";
+import { MyRegistrationsPage } from "./features/events/MyRegistrationsPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -306,14 +307,6 @@ function CatchAllNotFound() {
     <NotFoundPage />
   );
 }
-
-const authPage = (testId: string, title: string) => (
-  <RequireAuth>
-    <AppShell>
-      <PlaceholderPage testId={testId} title={title} />
-    </AppShell>
-  </RequireAuth>
-);
 
 const memberPage = (testId: string, title: string) => (
   <RequireAuth>
@@ -594,7 +587,7 @@ export default function App() {
       />
       <Route
         path="/my-registrations"
-        element={authPage("page-my-registrations", "My registrations")}
+        element={<RequireAuth><AppShell><MyRegistrationsPage /></AppShell></RequireAuth>}
       />
       <Route
         path="/my-tasks"

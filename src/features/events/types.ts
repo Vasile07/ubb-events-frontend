@@ -44,6 +44,11 @@ export interface EventDetails {
 
 export interface RegistrationResponse { id: number; eventId: number; userId: number; }
 
+export interface MyRegistration {
+  registrationId: number;
+  event: EventSummary;
+}
+
 export interface AnnouncementResponse { id: number; eventId: number; title: string; content: string; }
 
 export type OrganizationEventStatus =
