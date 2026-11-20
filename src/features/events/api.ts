@@ -7,6 +7,7 @@ import type {
   OrganizationEvent,
   RegistrationResponse,
   MyRegistration,
+  EventRegistration,
 } from "./types";
 import type { EventFormValues } from "./eventFormTypes";
 import type { EventTask, EventTaskRequest } from "./eventTasks";
@@ -64,6 +65,10 @@ export function getOrganizationEvent(
   return apiFetch<OrganizationEvent>(
     `/api/organizations/${organizationId}/events/${eventId}`,
   );
+}
+
+export function getEventRegistrations(organizationId: number, eventId: number): Promise<EventRegistration[]> {
+  return apiFetch<EventRegistration[]>(`/api/organizations/${organizationId}/events/${eventId}/registrations`);
 }
 
 export function updateOrganizationEvent(organizationId: number, eventId: number, values: EventFormValues, categoryId: number) {

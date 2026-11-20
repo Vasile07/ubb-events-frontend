@@ -44,6 +44,12 @@ export interface EventDetails {
 
 export interface RegistrationResponse { id: number; eventId: number; userId: number; }
 
+export interface EventRegistration {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 export interface MyRegistration {
   registrationId: number;
   event: EventSummary;
