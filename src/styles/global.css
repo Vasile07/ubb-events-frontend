@@ -1032,6 +1032,24 @@ select {
 .event-workspace-state h1, .event-workspace-state p { margin: 0; }
 .event-workspace-state button { justify-self: center; padding: 10px 16px; border: 0; border-radius: 10px; color: var(--text-inverse); background: var(--bg-brand); cursor: pointer; }
 @media (max-width: 760px) { .event-workspace-header { padding: 24px 20px 0; } .event-workspace-content { padding: 24px 20px; } .event-workspace-title-row { align-items: flex-start; flex-direction: column; } .event-workspace-title-row h1 { font-size: 26px; } .event-workspace-action-group { width: 100%; } .event-edit-page { padding: 24px 20px 40px; } }
+.event-registrations-page { display: grid; gap: 24px; max-width: 1100px; }
+.event-registrations-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.event-registrations-heading h2, .event-registrations-heading p { margin: 0; }
+.event-registrations-heading p { margin-top: 6px; color: var(--text-secondary); }
+.event-registrations-heading .ui-search-field { min-width: min(100%, 320px); }
+.event-registrations-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.event-registrations-stat { display: grid; gap: 6px; padding: 20px; border: 1px solid var(--border-default); border-radius: var(--radius-lg); background: var(--bg-surface); box-shadow: var(--shadow-card); }
+.event-registrations-stat strong { font-size: 28px; line-height: 1.1; }
+.event-registrations-stat span { color: var(--text-secondary); }
+.event-registrations-table-wrap { overflow: auto; border: 1px solid var(--border-default); border-radius: var(--radius-lg); background: var(--bg-surface); }
+.event-registrations-table { width: 100%; min-width: 620px; border-collapse: collapse; text-align: left; }
+.event-registrations-table th, .event-registrations-table td { padding: 16px 20px; border-bottom: 1px solid var(--border-default); }
+.event-registrations-table th { color: var(--text-secondary); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+.event-registrations-table tr:last-child td { border-bottom: 0; }
+.event-registrations-table td:first-child { display: flex; align-items: center; gap: 12px; }
+.event-registration-status { color: var(--status-success-fg); font-weight: 700; }
+.event-registrations-state { display: grid; gap: 16px; max-width: 760px; }
+@media (max-width: 760px) { .event-registrations-heading { align-items: stretch; flex-direction: column; } .event-registrations-heading .ui-search-field { min-width: 0; } .event-registrations-stats { grid-template-columns: 1fr; } .event-registrations-page { gap: 18px; } }
 @media (max-width: 560px) {
   .ui-toast-region { top: 12px; right: 12px; width: calc(100vw - 24px); }
   .ui-empty-state,

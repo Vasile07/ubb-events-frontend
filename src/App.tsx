@@ -38,6 +38,7 @@ import { CreateEventPage } from "./features/events/CreateEventPage";
 import { ProfilePage } from "./features/profile/ProfilePage";
 import { EventTasksPage } from "./features/events/EventTasksPage";
 import { MyRegistrationsPage } from "./features/events/MyRegistrationsPage";
+import { EventRegistrationsPage } from "./features/events/EventRegistrationsPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -638,7 +639,7 @@ export default function App() {
       />
       <Route
         path="/org/:organizationId/events/:eventId/registrations"
-          element={eventPage("page-org-event-registrations", "Event registrations")}
+          element={<RequireAuth><RequireOrgMember><AppShell><OrganizationWorkspace><EventWorkspace><EventRegistrationsPage /></EventWorkspace></OrganizationWorkspace></AppShell></RequireOrgMember></RequireAuth>}
       />
       <Route
         path="/org/:organizationId/events/:eventId/chat"
