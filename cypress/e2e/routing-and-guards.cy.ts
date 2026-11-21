@@ -136,7 +136,7 @@ describe("routing and route guards", () => {
     visitAuthenticated("/org/3/requests", [
       { organizationId: 3, role: "MANAGER" },
     ]);
-    cy.get("[data-testid=page-org-requests]").should("be.visible");
+    cy.get("[data-testid=page-membership-requests]").should("be.visible");
 
     visitAuthenticated("/org/3/events/9/follow-up", [
       { organizationId: 3, role: "MANAGER" },

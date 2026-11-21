@@ -23,6 +23,18 @@ export interface MembershipRequestResponse {
   [key: string]: unknown;
 }
 
+export type MembershipRequestDetailsStatus = "PENDING" | "ACCEPTED" | "DECLINED";
+export type MembershipDecision = "ACCEPTED" | "DECLINED";
+
+export interface MembershipRequestDetailsResponse {
+  requestId: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  requestedAt: string | null;
+  status: MembershipRequestDetailsStatus;
+}
+
 export interface OrganizationMemberResponse {
   id: number;
   fullName?: string;

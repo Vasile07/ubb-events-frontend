@@ -318,7 +318,7 @@ select {
 .organization-details-hero-copy { display: grid; gap: 8px; min-width: 0; }
 .organization-details-hero h1, .organization-details-hero p { margin: 0; }
 .organization-details-hero h1 { color: var(--text-inverse, #fff); font-size: 36px; font-weight: 700; line-height: 40px; letter-spacing: -0.5px; }
-.organization-details-hero p { color: var(--text-inverse-soft, #d0e1f2); font-size: 16px; line-height: 24px; }
+.organization-details-hero p { color: var(--color-blue-200); font-size: 16px; line-height: 24px; }
 .organization-details-actions { position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
 .organization-details-actions .ui-button { white-space: nowrap; }
 .organization-details-columns { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 32px; align-items: start; }
@@ -647,7 +647,7 @@ select {
 .ui-auth-description {
   max-width: 500px;
   margin: 0;
-  color: var(--text-inverse-soft, var(--color-blue-200));
+  color: var(--color-blue-200);
   font-size: 16px;
   line-height: 24px;
 }
@@ -943,6 +943,29 @@ select {
   .ui-feedback-loading-grid { grid-template-columns: 1fr; }
   .ui-table-skeleton { max-width: 100%; }
 }
+
+.membership-requests-page { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.membership-requests-page .ui-page-header { width: 100%; align-items: center; }
+.membership-requests-page .ui-page-header-actions { align-self: auto; }
+.membership-requests-page .ui-page-header h1 { color: var(--text-primary); font-size: 32px; line-height: 40px; letter-spacing: -.5px; }
+.membership-requests-page .ui-page-header p { margin-top: 4px; color: var(--text-secondary); font-size: 14px; line-height: 22px; }
+.membership-requests-tabs { max-width: 100%; overflow-x: auto; align-self: auto; border: 1px solid var(--border-default); background: var(--bg-surface); }
+.membership-requests-tabs button { white-space: nowrap; }
+.membership-requests-table-wrap { width: 100%; border-radius: var(--radius-lg); }
+.membership-requests-table { min-width: 760px; }
+.membership-requests-table thead { background: var(--bg-page); }
+.membership-requests-table th { padding: 12px 24px; font-size: 11px; letter-spacing: .2px; }
+.membership-requests-table td { height: 73px; padding: 14px 24px; }
+.membership-requests-table tr:last-child td { border-bottom: 0; }
+.membership-request-applicant { display: flex; align-items: center; gap: 12px; }
+.membership-request-applicant > span:last-child { display: flex; flex-direction: column; gap: 2px; }
+.membership-request-applicant strong { color: var(--text-primary); font-size: 14px; line-height: 20px; }
+.membership-request-applicant small { color: var(--text-secondary); font-size: 12px; line-height: 16px; }
+.membership-request-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.membership-requests-page > .ui-info-banner { margin-top: 0; gap: 12px; padding: 14px 20px; border-radius: 14px; font-weight: 500; }
+.membership-requests-page > .ui-info-banner .ui-icon { flex: 0 0 18px; width: 18px; height: 18px; }
+.membership-requests-page > .ui-info-banner .ui-icon img { width: 18px; height: 18px; }
+@media (max-width: 760px) { .membership-requests-page .ui-page-header { align-items: flex-start; flex-direction: column; } .membership-requests-tabs { align-self: flex-start; } .membership-requests-table-wrap { margin-inline: -8px; width: calc(100% + 16px); } }
 
 .organization-workspace { display: grid; grid-template-columns: 272px minmax(0, 1fr); min-height: calc(100vh - 72px); background: var(--bg-page); }
 .organization-workspace-sidebar { display: flex; flex-direction: column; gap: 24px; min-height: calc(100vh - 72px); padding: 24px 20px; border-right: 1px solid var(--border-default); background: var(--bg-surface); }
@@ -1304,7 +1327,7 @@ select {
 }
  .event-form { max-width: 1100px; margin: 0 auto; }
 .event-form-layout { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 24px; }
-.event-form-section, .event-form-aside section { background: var(--color-white, #fff); border: 1px solid var(--color-blue-200, #d0e1f2); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.event-form-section, .event-form-aside section { background: var(--bg-surface); border: 1px solid var(--color-blue-200); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
 .event-form-section h2, .event-form-aside h2 { margin-top: 0; }
 .event-form-grid { display: grid; gap: 16px; }
 .event-form-grid-four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
