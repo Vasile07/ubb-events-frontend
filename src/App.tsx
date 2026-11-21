@@ -30,6 +30,7 @@ import { OrganizationsListPage } from "./features/organizations/OrganizationsLis
 import { OrganizationWorkspace } from "./features/organizations/OrganizationWorkspace";
 import { OrganizationDetailsPage } from "./features/organizations/OrganizationDetailsPage";
 import { OrganizationEventsPage } from "./features/organizations/OrganizationEventsPage";
+import { MembershipRequestsPage } from "./features/organizations/MembershipRequestsPage";
 import { EventWorkspace } from "./features/events/EventWorkspace";
 import { EventDetailsPage } from "./features/events/EventDetailsPage";
 import { EventEditPage } from "./features/events/EventEditPage";
@@ -318,18 +319,6 @@ const memberPage = (testId: string, title: string) => (
         </OrganizationWorkspace>
       </AppShell>
     </RequireOrgMember>
-  </RequireAuth>
-);
-
-const managerPage = (testId: string, title: string) => (
-  <RequireAuth>
-    <RequireOrgManager>
-      <AppShell>
-        <OrganizationWorkspace>
-          <PlaceholderPage testId={testId} title={title} />
-        </OrganizationWorkspace>
-      </AppShell>
-    </RequireOrgManager>
   </RequireAuth>
 );
 
@@ -655,7 +644,7 @@ export default function App() {
       />
       <Route
         path="/org/:organizationId/requests"
-        element={managerPage("page-org-requests", "Membership requests")}
+        element={<RequireAuth><RequireOrgManager><AppShell><OrganizationWorkspace><MembershipRequestsPage /></OrganizationWorkspace></AppShell></RequireOrgManager></RequireAuth>}
       />
       <Route
         path="/org/:organizationId/members"
