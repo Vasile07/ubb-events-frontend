@@ -31,6 +31,7 @@ import { OrganizationWorkspace } from "./features/organizations/OrganizationWork
 import { OrganizationDetailsPage } from "./features/organizations/OrganizationDetailsPage";
 import { OrganizationEventsPage } from "./features/organizations/OrganizationEventsPage";
 import { MembershipRequestsPage } from "./features/organizations/MembershipRequestsPage";
+import { OrganizationMembersPage } from "./features/organizations/OrganizationMembersPage";
 import { EventWorkspace } from "./features/events/EventWorkspace";
 import { EventDetailsPage } from "./features/events/EventDetailsPage";
 import { EventEditPage } from "./features/events/EventEditPage";
@@ -311,17 +312,13 @@ function CatchAllNotFound() {
   );
 }
 
-const memberPage = (testId: string, title: string) => (
-  <RequireAuth>
-    <RequireOrgMember>
-      <AppShell>
-        <OrganizationWorkspace>
-          <PlaceholderPage testId={testId} title={title} />
-        </OrganizationWorkspace>
-      </AppShell>
-    </RequireOrgMember>
-  </RequireAuth>
-);
+function OrganizationMembersRoute() {
+  const organizationId = parseOrganizationId(useParams().organizationId);
+  if (organizationId === null) {
+    return <AppShell><main className="organization-members-invalid" data-testid="organization-members-invalid" role="alert">Invalid organization.</main></AppShell>;
+  }
+  return <RequireOrgMember><AppShell><OrganizationWorkspace><OrganizationMembersPage /></OrganizationWorkspace></AppShell></RequireOrgMember>;
+}
 
 const eventPage = (testId: string, title: string, manager = false) => (
   <RequireAuth>
@@ -649,7 +646,7 @@ export default function App() {
       />
       <Route
         path="/org/:organizationId/members"
-        element={memberPage("page-org-members", "Organization members")}
+        element={<RequireAuth><OrganizationMembersRoute /></RequireAuth>}
       />
       <Route path="*" element={<CatchAllNotFound />} />
     </Routes>

@@ -43,3 +43,8 @@ export interface OrganizationMemberResponse {
   email?: string;
   role?: "MANAGER" | "MEMBER";
 }
+
+export interface RolePromotionResponse {
+  userId: number;
+  role: "MANAGER";
+}
