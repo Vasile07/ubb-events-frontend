@@ -77,3 +77,10 @@ export interface OrganizationEvent {
   status: OrganizationEventStatus;
   registrationCount: number;
 }
+
+export interface EventMessage {
+  id: number;
+  senderId: number;
+  content: string;
+  sentAt: string | null;
+}
