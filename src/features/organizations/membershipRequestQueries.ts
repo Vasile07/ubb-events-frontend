@@ -9,6 +9,10 @@ export const organizationMembershipRequestDetailsKey = (organizationId: number, 
 export const organizationMembersKey = (organizationId: number) =>
   ["organization-members", organizationId] as const;
 
+export function invalidateOrganizationMembers(queryClient: QueryClient, organizationId: number) {
+  return queryClient.invalidateQueries({ queryKey: organizationMembersKey(organizationId) });
+}
+
 export function invalidateMembershipRequests(queryClient: QueryClient, organizationId: number) {
   return queryClient.invalidateQueries({
     queryKey: organizationMembershipRequestsKey(organizationId),
@@ -17,8 +21,4 @@ export function invalidateMembershipRequests(queryClient: QueryClient, organizat
 
 export function invalidateMembershipRequestDetails(queryClient: QueryClient, organizationId: number) {
   return queryClient.invalidateQueries({ queryKey: ["organization-membership-request-details", organizationId] });
-}
-
-export function invalidateOrganizationMembers(queryClient: QueryClient, organizationId: number) {
-  return queryClient.invalidateQueries({ queryKey: organizationMembersKey(organizationId) });
 }

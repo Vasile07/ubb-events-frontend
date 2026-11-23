@@ -1,5 +1,5 @@
 import { apiFetch } from "./client";
-import type { MembershipDecision, MembershipRequestDetailsResponse, MembershipRequestDetailsStatus, MembershipRequestResponse, OrganizationDetailsResponse, OrganizationMemberResponse, OrganizationResponse } from "./types";
+import type { MembershipDecision, MembershipRequestDetailsResponse, MembershipRequestDetailsStatus, MembershipRequestResponse, OrganizationDetailsResponse, OrganizationMemberResponse, OrganizationResponse, RolePromotionResponse } from "./types";
 export { invalidateMembershipRequests, organizationMembershipRequestsKey } from "../../features/organizations/membershipRequestQueries";
 
 export function getOrganizations(): Promise<OrganizationResponse[]> {
@@ -27,6 +27,13 @@ export function decideMembershipRequest(organizationId: number, requestId: numbe
 
 export function getOrganizationMembers(organizationId: number): Promise<OrganizationMemberResponse[]> {
   return apiFetch<OrganizationMemberResponse[]>(`/api/organizations/${organizationId}/members`);
+}
+
+export function promoteOrganizationMember(organizationId: number, userId: number): Promise<RolePromotionResponse> {
+  return apiFetch<RolePromotionResponse>(`/api/organizations/${organizationId}/members/${userId}/role`, {
+    method: "PATCH",
+    body: { role: "MANAGER" },
+  });
 }
 
 export function requestOrganizationMembership(organizationId: number): Promise<void> {
