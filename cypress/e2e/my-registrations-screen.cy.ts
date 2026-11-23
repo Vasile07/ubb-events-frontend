@@ -7,7 +7,7 @@ describe("my registrations screen", () => {
   } as Response);
 
   const registrations = [
-    { registrationId: 1, event: { id: 10, title: "Career Fair", date: "2026-11-22", startTime: "18:00:00", endTime: "20:00:00", location: "Aula Magna", status: "PUBLISHED", organization: { id: 1, name: "Societatea Hermes" } } },
+    { registrationId: 1, event: { id: 10, title: "Career Fair", date: "2099-11-22", startTime: "18:00:00", endTime: "20:00:00", location: "Aula Magna", status: "PUBLISHED", organization: { id: 1, name: "Societatea Hermes" } } },
     { registrationId: 2, event: { id: 20, title: "Canceled meetup", date: "2026-12-05", startTime: "10:00:00", endTime: "12:00:00", location: "Main hall", status: "CANCELED", organization: { id: 2, name: "Photo Club UBB" } } },
     { registrationId: 3, event: { id: 30, title: "Past workshop", date: "2020-01-05", startTime: "10:00:00", endTime: "12:00:00", location: "Room 1", status: "PUBLISHED", organization: { id: 1, name: "Societatea Hermes" } } },
   ];
