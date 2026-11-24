@@ -7,6 +7,7 @@ import { Icon, Modal, ProgressBar } from "../../shared/ui/LayoutComponents";
 import { getEventBadge } from "../../shared/lib/eventStatus";
 import { cancelRegistration, getEvent, getEventAnnouncements, registerForEvent } from "./api";
 import type { EventDetails } from "./types";
+import { AnnouncementItem } from "./AnnouncementItem";
 
 function formatDate(date: string, startTime: string) {
   const value = new Date(`${date}T${startTime}`);
@@ -65,7 +66,7 @@ export function EventDetailsPage() {
       <section className="event-details-about"><h2>About this event</h2><p>{event.description}</p><div className="event-registration-info"><Icon name="info" /><span>Registration is available while places remain.</span></div></section>
       {registered && announcementsQuery.isLoading && <section data-testid="announcements-card"><h2>Announcements</h2><Skeleton width="100%" height={80} /></section>}
       {registered && announcementsQuery.isSuccess && announcementsQuery.data.length === 0 && <section data-testid="announcements-card"><h2>Announcements</h2><EmptyState icon="Calendar" title="No announcements yet" description="Updates from the organizers will appear here." /></section>}
-      {registered && announcementsQuery.isSuccess && announcementsQuery.data.length > 0 && <section className="event-announcements-card" data-testid="announcements-card"><h2>Announcements</h2><div className="event-announcements-list">{announcementsQuery.data.map((announcement) => <article className="event-announcement" key={announcement.id}><h3>{announcement.title}</h3><p>{announcement.content}</p></article>)}</div></section>}
+      {registered && announcementsQuery.isSuccess && announcementsQuery.data.length > 0 && <section className="event-announcements-card" data-testid="announcements-card"><h2>Announcements</h2><div className="event-announcements-list">{[...announcementsQuery.data].sort((a, b) => b.id - a.id).map((announcement) => <AnnouncementItem key={announcement.id} announcement={announcement} />)}</div></section>}
       {registered && announcementsQuery.isError && (announcementsQuery.error instanceof ApiError && announcementsQuery.error.status === 403 ? null : <section data-testid="announcements-card"><ErrorState title="Announcements unavailable" /></section>)}
     </div><aside className="event-details-sidebar">
       <section className="event-registration-card" data-testid="registration-card"><h2>{registered ? "You’re registered" : "Register for this event"}</h2><p className="event-places">{event.registrationCount} of {event.capacity} places taken</p><ProgressBar value={event.registrationCount} max={event.capacity} label="Places taken" testId="registration-progress" />{action.reason && <p className="event-action-reason">{action.reason}</p>}<Button data-testid={registered ? "cancel-registration" : "register-event"} variant={registered ? "Danger" : "Primary"} disabled={action.disabled || mutation.isPending} onClick={() => registered ? setConfirming(true) : mutation.mutate(false)}>{action.label}</Button></section>

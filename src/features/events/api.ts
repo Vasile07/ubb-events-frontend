@@ -132,6 +132,17 @@ export function getEventAnnouncements(eventId: number): Promise<AnnouncementResp
   return apiFetch<AnnouncementResponse[]>(`/api/events/${eventId}/announcements`);
 }
 
+export function createEventAnnouncement(
+  organizationId: number,
+  eventId: number,
+  request: { title: string; content: string },
+): Promise<AnnouncementResponse> {
+  return apiFetch<AnnouncementResponse>(
+    `/api/organizations/${organizationId}/events/${eventId}/announcements`,
+    { method: "POST", body: request },
+  );
+}
+
 export function getEventTasks(organizationId: number, eventId: number): Promise<EventTask[]> {
   return apiFetch<EventTask[]>(`/api/organizations/${organizationId}/events/${eventId}/tasks`);
 }
