@@ -129,7 +129,8 @@ describe("routing and route guards", () => {
     visitAuthenticated("/org/3/events/9/follow-up", [
       { organizationId: 3, role: "MEMBER" },
     ]);
-    cy.get("[data-testid=page-forbidden]").should("be.visible");
+    cy.get("[data-testid=event-follow-up-page]").should("be.visible");
+    cy.get("[data-testid=page-forbidden]").should("not.exist");
   });
 
   it("allows a manager into manager workspace routes", () => {
@@ -141,7 +142,7 @@ describe("routing and route guards", () => {
     visitAuthenticated("/org/3/events/9/follow-up", [
       { organizationId: 3, role: "MANAGER" },
     ]);
-    cy.get("[data-testid=page-org-event-follow-up]").should("be.visible");
+    cy.get("[data-testid=event-follow-up-page]").should("be.visible");
   });
 
   it("registers every member workspace route in the route map", () => {
@@ -163,6 +164,8 @@ describe("routing and route guards", () => {
       cy.location("pathname").should("eq", path);
       if (path.endsWith("/events/new")) {
         cy.get("[data-testid=create-event-page]").should("be.visible");
+      } else if (path.endsWith("/follow-up")) {
+        cy.get("[data-testid=event-follow-up-page]").should("be.visible");
       } else {
         cy.get("[data-testid^=page-]").should("be.visible");
       }

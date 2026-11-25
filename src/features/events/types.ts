@@ -84,3 +84,9 @@ export interface EventMessage {
   content: string;
   sentAt: string | null;
 }
+
+export interface EventFollowUp {
+  id: number;
+  eventId: number;
+  content: string;
+}
