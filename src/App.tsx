@@ -43,6 +43,7 @@ import { MyRegistrationsPage } from "./features/events/MyRegistrationsPage";
 import { EventRegistrationsPage } from "./features/events/EventRegistrationsPage";
 import { EventOrganizerChatPage } from "./features/events/EventOrganizerChatPage";
 import { EventAnnouncementsPage } from "./features/events/EventAnnouncementsPage";
+import { EventFollowUpPage } from "./features/events/EventFollowUpPage";
 
 function AuthStatusMarker() {
   const { status, user } = useAuth();
@@ -216,16 +217,6 @@ function ComponentsDemo() {
   );
 }
 
-function PlaceholderPage({ testId, title }: { testId: string; title: string }) {
-  return (
-    <main data-testid={testId}>
-      <AuthStatusMarker />
-      <h1>{title}</h1>
-      <p>This screen is ready for the next feature task.</p>
-    </main>
-  );
-}
-
 function EventFormDemo() {
   const edit = window.location.pathname.endsWith("/edit");
   const errors = new URLSearchParams(window.location.search).has("errors");
@@ -320,12 +311,6 @@ function OrganizationMembersRoute() {
   }
   return <RequireOrgMember><AppShell><OrganizationWorkspace><OrganizationMembersPage /></OrganizationWorkspace></AppShell></RequireOrgMember>;
 }
-
-const eventPage = (testId: string, title: string, manager = false) => (
-  <RequireAuth>
-    {manager ? <RequireOrgManager><AppShell><OrganizationWorkspace><EventWorkspace><PlaceholderPage testId={testId} title={title} /></EventWorkspace></OrganizationWorkspace></AppShell></RequireOrgManager> : <RequireOrgMember><AppShell><OrganizationWorkspace><EventWorkspace><PlaceholderPage testId={testId} title={title} /></EventWorkspace></OrganizationWorkspace></AppShell></RequireOrgMember>}
-  </RequireAuth>
-);
 
 const palette = [
   ["Blue 900", "#223A5E", "Text, nav, strong surfaces", "blue-900"],
@@ -639,7 +624,7 @@ export default function App() {
       />
       <Route
         path="/org/:organizationId/events/:eventId/follow-up"
-          element={eventPage("page-org-event-follow-up", "Event follow-up", true)}
+          element={<RequireAuth><RequireOrgMember><AppShell><OrganizationWorkspace><EventWorkspace><EventFollowUpPage /></EventWorkspace></OrganizationWorkspace></AppShell></RequireOrgMember></RequireAuth>}
       />
       <Route
         path="/org/:organizationId/requests"

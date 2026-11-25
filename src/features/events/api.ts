@@ -9,6 +9,7 @@ import type {
   MyRegistration,
   EventRegistration,
   EventMessage,
+  EventFollowUp,
 } from "./types";
 import type { EventFormValues } from "./eventFormTypes";
 import type { EventTask, EventTaskRequest } from "./eventTasks";
@@ -81,6 +82,14 @@ export function sendEventMessage(organizationId: number, eventId: number, conten
     method: "POST",
     body: { content },
   });
+}
+
+export function getEventFollowUp(organizationId: number, eventId: number): Promise<EventFollowUp> {
+  return apiFetch<EventFollowUp>(`/api/organizations/${organizationId}/events/${eventId}/follow-up`);
+}
+
+export function createEventFollowUp(organizationId: number, eventId: number, content: string): Promise<EventFollowUp> {
+  return apiFetch<EventFollowUp>(`/api/organizations/${organizationId}/events/${eventId}/follow-up`, { method: "POST", body: { content } });
 }
 
 export function updateOrganizationEvent(organizationId: number, eventId: number, values: EventFormValues, categoryId: number) {
